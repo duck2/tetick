@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tetick.xyz: simple scheduler</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="awesomplete.css">
+<div class="header">
+<a href="index.html">tetick.xyz</a>
+<a href="how/">how?</a>
+<a href="#" onclick="javascript:alert('take a screenshot, sweetie');">save</a>
+</div>
+
+<div class="swallow">
+	<div class="schedule">
+		<div class="nav">
+		<button id="prev"> ← </button>
+		<div id="counter">0/?</div>
+		<div id="state">blank</div>
+		<button id="next"> → </button>
+		</div>
+		<div style="position:relative;"><div id="start_time">8:40</div><div id="end_time">17:30</div><table>
+		<tr><td><div class="eatd" id="0"></div></td>
+		<td><div class="eatd" id="1"></div></td>
+		<td><div class="eatd" id="2"></div></td>
+		<td><div class="eatd" id="3"></div></td>
+		<td><div class="eatd" id="4"></div></td>
+		</tr></table></div>
+		<div class="form">
+		day <input class="short" id="d">, between <input class="short" id="s"> and <input class="short" id="e">
+		<button id="dontfill"> don't fill </button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="options">
+			<div>dept, like fle or me: <input id="dept" class="short"></div>
+			<div>semester: <input id="semester" class="short"></div>
+			<div><button id="add-musts">add must courses</button></div>
+			<div>
+				<input type="checkbox" id="sncheck"> check for my surname: <input id="surname" class="short"> <br>
+			</div>
+			<div><input type="checkbox" id="nodeptcheck"> don't check for dept</div>
+			<div><input type="checkbox" id="allphantom"> all courses phantom </div>
+			<div>
+				course: <input class="awesomplete" onclick="this.value='';" id="course-list" data-maxitems="5">
+				<button id="add"> add </button>
+			</div>
+			<button id="make"> make schedule </button>
+		</div>
+		<div class="courses">
+			<div style="text-align: center; margin: 0.8em;"> current courses </div>
+		</div>
+	</div>
+</div>
+
+<div class="footer">
+	<hr>
+	"death feels rather close, oh perhaps it is you" - Asi Styla, 2014
+</div>
+
+<script src="awesomplete.js"></script>
+<script src="data.js"></script>
+<script src="main.js"></script>

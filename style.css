@@ -1,0 +1,153 @@
+html, body {
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+	font-family: sans-serif;
+	font-size: 10pt;
+}
+
+button {
+	background-color: #eee;
+	border: 1px solid #ddd;
+}
+
+.header {
+	background-color: #eee;
+	top: 0px;
+	padding: 0.8em;
+	font-size: 12pt;
+}
+
+.header a {
+	padding: 0.8em;
+	height: 100%;
+	color: #222;
+}
+
+.header a:hover {background-color: #ddd;}
+
+/* swallows everything */
+.swallow {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 2em 1em;
+	padding: 4%;
+}
+
+.swallow > * {
+	margin: 0% 1% 0% 1%;
+}
+
+.schedule {
+	flex-basis: 60%;
+	flex-grow: 100;
+}
+
+.nav {
+	position: relative;
+	margin-bottom: 1%;
+	display: flex;
+	justify-content: center;
+}
+#state{
+	position: absolute;
+	right: 0;
+	margin-top: 0.5%;
+}
+#prev, #next, #counter {
+	margin: 0 1% 0 1%;
+}
+
+table {
+	border-collapse: collapse;
+	height: 100%;
+	width: 100%;
+}
+
+/* eatd is there for block alignment */
+td { min-width: 8em; border: 1px solid black; height: 25em; }
+.eatd { position: relative; height: 100%; cursor: pointer; }
+.block {
+	position: absolute;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	cursor: pointer;
+}
+#start_time {position: absolute; top: 5px; left: 5px;}
+#end_time {position: absolute; bottom:5px; left: 5px;}
+
+.form {
+	margin: 2%;
+	text-align: center;
+}
+button#dontfill { height: 1.6em; }
+
+/* row holds the options and course list */
+.row {
+	flex-basis: 35%;
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+.short {
+	width: 2.5em;
+}
+
+.options > * {
+	margin: 1em 0 0 0;
+}
+
+button#add-musts {
+	width: 100%;
+	height: 2.5em;
+}
+
+button#add {
+	height: 1.6em;
+}
+
+button#make {
+	width: 100%;
+	height: 2.5em;
+	margin-top: 0.5em;
+	background-color: #ffd;
+}
+
+.courses {
+	background-color: #eee;
+	margin-top: 0.5em;
+	display: flex;
+	flex-direction: column;
+}
+
+.title { 
+	text-align: center;
+	cursor: pointer;
+	padding: 0.8em;
+}
+.close { float: right; }
+
+.more {
+	max-height: 0;
+	padding-left: 0.8em;
+	padding-right: 0.8em;
+	overflow: hidden;
+	transition: 0.4s ease-in-out;
+}
+.show { max-height: 30em; }
+.more > * {
+	margin-top: 0.4em;
+}
+.boxes > * {
+	margin: 0em 1em 0.5em 0em;
+	display: inline-block;
+}
+.opts {
+	width: 100%;
+	display: block;
+	margin-bottom: 1em;
+}
