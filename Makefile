@@ -8,7 +8,7 @@ $(OUTDIR):
 $(OUTDIR)/index.html: main.min.js style.css awesomplete.js awesomplete.css
 	grep -v -E "(awesomplete.js|data.js)" index.html | sed "s/main\.js/main.min.js/" > index.html.tmp
 	./html-inline.py index.html.tmp > $(OUTDIR)/index.html
-	# rm index.html.tmp main.min.js
+	rm index.html.tmp
 
 main.min.js: awesomplete.js data.js main.js
 	uglifyjs awesomplete.js data.js main.js --compress --mangle >  main.min.js
@@ -23,4 +23,4 @@ musts.json: musts.py
 	python musts.py
 
 clean:
-	rm -f $(OUTDIR)/index.html
+	rm -f main.min.js $(OUTDIR)/index.html
