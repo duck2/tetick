@@ -523,5 +523,6 @@ function load(){
 	if(h) restorestate(JSON.parse(atob(h)));
 	if(courses.length > 0) make();
 }
+grab("save").onclick = save;
 if(window.location.hash) load();
 draw();
