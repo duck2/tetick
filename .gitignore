@@ -1,4 +1,5 @@
 www/
+*.min.js
 data.js
 data.json
 musts.json

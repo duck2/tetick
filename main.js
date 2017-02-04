@@ -246,7 +246,6 @@ grab("dontfill").onclick = df_form;
 /* is this section fine with these values? deptcheck and sncheck are self explanatory. returns true if yes. */
 function ck_sect(sect, deptcheck, sncheck){
 	var i, dept=grab("dept").value, sname=grab("surname").value;
-	if(!sect.c) return true;
 	if(dept && deptcheck){
 		dept = dept.toUpperCase();
 		for(i=0; i<sect.c.length; i++) if(sect.c[i].d !== "ALL" && sect.c[i].d !== dept) return false;
