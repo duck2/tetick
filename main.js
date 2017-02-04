@@ -79,7 +79,9 @@ function toclock(min){
 }
 /* vice versa */
 function tomins(clock){
-	return clock.split(":")[0] * 60 + parseInt(clock.split(":")[1]);
+	var split = clock.split(":");
+	if(split.length == 1) split = split[0].split(".");
+	return split[0] * 60 + parseInt(split[1]);
 }
 
 /* by default, 08:40 to 17:30 */
@@ -454,5 +456,8 @@ grab("add-musts").onclick = function(){
 grab("add").onclick = function(){
 	course(lookup[grab("course-list").value]);
 };
+
+/* those need remake */
+grab("sncheck").onchange = grab("surname").onchange = grab("nodeptcheck").onchange = grab("allphantom").onchange = unbind;
 
 draw();
