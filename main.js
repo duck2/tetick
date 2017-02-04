@@ -27,7 +27,7 @@ function unbind(){
 }
 /* called when program state is undefined */
 function tantrum(){
-	alert("Tetick does not know its program state.");
+	alert("Tetick does not know what is going on.");
 	alert("If you didn't do this using the developer console,");
 	alert("please mail duck2@protonmail.com about the incident.");
 }
@@ -125,7 +125,7 @@ function mkopts(){
 	opts.appendChild(opt);
 	return opts;
 }
-/* make a course and append to div.courses. color is randomly selected from palette.
+/* make a course, append to div.courses and return it. color is randomly selected from palette.
  * unbinds schedule. */
 function course(idx){
 	var outel = divclass("course"), title = divclass("title"), more = divclass("more");
@@ -158,6 +158,7 @@ function course(idx){
 	out.data = window.cdata[idx];
 	courses.push(out);
 	unbind();
+	return out;
 }
 
 /* open/close a course's accordion */
@@ -457,7 +458,70 @@ grab("add").onclick = function(){
 	course(lookup[grab("course-list").value]);
 };
 
-/* those need remake */
+/* remaining bound with those is hard */
 grab("sncheck").onchange = grab("surname").onchange = grab("nodeptcheck").onchange = grab("allphantom").onchange = unbind;
 
+/* the save link encodes the state in window.location.hash, the URL effectively.
+ * if we find a non-empty window.location.hash, we attempt to restore a state from it.
+ * the state is stored like
+ * {d: dontfills, n: current schedule, c: courses, dp: dept, t: term, sc, dc, ap: surname, dept, all phantom?, sn: surname}
+ * the courses are stored like
+ * {n: name, s: not checked sections} */
+function getstate(){
+	var i, j, out = {};
+	out.d = dontfills;
+	out.n = cursched;
+	out.c = [];
+	for(i=0; i<courses.length; i++){
+		var boxes, node = {};
+		node.c = courses[i].color;
+		node.n = courses[i].data.n;
+		node.s = [];
+		boxes = courses[i].handle.getElementsByClassName("boxes")[0].querySelectorAll("input[type=checkbox]:not(:checked)");
+		for(j=0; j<boxes.length; j++){
+			node.s.push(boxes[j].nextSibling.data);
+		}
+		out.c.push(node);
+	}
+	out.dp = grab("dept").value;
+	out.t = grab("semester").value;
+	out.sn = grab("surname").value;
+	out.sc = grab("sncheck").checked ? 1 : 0;
+	out.dc = grab("nodeptcheck").checked ? 1 : 0;
+	out.ap = grab("allphantom").checked ? 1 : 0;
+	return out;
+}
+var saved = false;
+function save(){
+	window.location.hash = btoa(JSON.stringify(getstate()));
+	if(saved) return;
+	alert("your settings are saved in the link.");
+	alert("you can bookmark this link(Ctrl+D) or share it with your peers, though I don't know why would you do that.");
+	saved = true;
+}
+/* this does not errorcheck because there is no point providing feedback if someone went to tetick.xyz#asdasf. */
+function restorestate(st){
+	var i, j;
+	dontfills = st.d;
+	cursched = st.n;
+	for(i=0; i<st.c.length; i++){
+		var c = course(lookup[st.c[i].n]),
+			boxes = c.handle.getElementsByClassName("boxes")[0].querySelectorAll("input[type=checkbox]");
+		for(j=0; j<boxes.length; j++){
+			if(st.c[i].s.indexOf(boxes[j].nextSibling.data) > -1) boxes[j].checked = false;
+		}
+	}
+	grab("dept").value = st.dp;
+	grab("semester").value = st.t;
+	grab("surname").value = st.sn;
+	grab("sncheck").checked = st.sc === 1 ? true : false;
+	grab("nodeptcheck").checked = st.dc === 1 ? true : false;
+	grab("allphantom").checked = st.ap === 1 ? true : false;
+}
+function load(){
+	var h = window.location.hash.replace(/^#/, "");
+	if(h) restorestate(JSON.parse(atob(h)));
+	if(courses.length > 0) make();
+}
+if(window.location.hash) load();
 draw();
