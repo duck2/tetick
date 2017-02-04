@@ -33,8 +33,7 @@ function tantrum(){
 }
 
 /* color palette. course colors are randomly selected from this. */
-var palette = ["#fcdfdf", "#fcebdf", "#fcf7df", "#f5fcdf", "#dffce1", "#e9fcdf",
-			"#dffcee", "#dffcfa", "#dff3fc", "#dfe6fc", "#e4dffc", "#f0dffc"];
+var palette = ["#fcdfdf", "#fcebdf", "#dffce1", "#dffcfa", "#dff3fc", "#dfe6fc", "#e4dffc", "#f0dffc"];
 
 /* keeps track of current possible schedules.
  * elements of schedules are arrays of time periods, which has elements like
@@ -503,7 +502,6 @@ function save(){
 function restorestate(st){
 	var i, j;
 	dontfills = st.d;
-	cursched = st.n;
 	for(i=0; i<st.c.length; i++){
 		var c = course(lookup[st.c[i].n]),
 			boxes = c.handle.getElementsByClassName("boxes")[0].querySelectorAll("input[type=checkbox]");
@@ -517,11 +515,13 @@ function restorestate(st){
 	grab("sncheck").checked = st.sc === 1 ? true : false;
 	grab("nodeptcheck").checked = st.dc === 1 ? true : false;
 	grab("allphantom").checked = st.ap === 1 ? true : false;
+
+	if(courses.length > 0) make();
+	cursched = st.n;
 }
 function load(){
 	var h = window.location.hash.replace(/^#/, "");
 	if(h) restorestate(JSON.parse(atob(h)));
-	if(courses.length > 0) make();
 }
 grab("save").onclick = save;
 if(window.location.hash) load();
