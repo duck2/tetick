@@ -51,7 +51,7 @@ button {
 }
 #state{
 	position: absolute;
-	right: 0;
+	left: 0;
 	margin-top: 0.5%;
 }
 #prev, #next, #counter {
