@@ -32,8 +32,28 @@ function tantrum(){
 	alert("please mail duck2@protonmail.com about the incident.");
 }
 
-/* color palette. course colors are randomly selected from this. */
+/* color palette. course colors are selected with getcolor() from this. */
 var palette = ["#fcdfdf", "#fcebdf", "#dffce1", "#dffcfa", "#dff3fc", "#dfe6fc", "#e4dffc", "#f0dffc"];
+/* shuffle palette, get next color. if we run out of colors, shuffle again.
+ * http://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array */
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length; i; i--) {
+        j = ~~(Math.random() * i);
+        x = a[i - 1];
+        a[i - 1] = a[j];
+        a[j] = x;
+    }
+}
+var curcolor = 0;
+shuffle(palette);
+function getcolor(){
+	if(curcolor >= palette.length){
+		shuffle(palette);
+		curcolor = 0;
+	}
+	return palette[curcolor++];
+}
 
 /* keeps track of current possible schedules.
  * elements of schedules are arrays of time periods, which has elements like
@@ -124,13 +144,12 @@ function mkopts(){
 	opts.appendChild(opt);
 	return opts;
 }
-/* make a course, append to div.courses and return it. color is randomly selected from palette.
+/* make a course, append to div.courses and return it. color is from getcolor().
  * unbinds schedule. */
 function course(idx){
 	var outel = divclass("course"), title = divclass("title"), more = divclass("more");
-	var out = {}, color = palette[Math.floor(Math.random()*palette.length)];
-	var data = window.cdata[idx];
-	var close = button("close", "x");
+	var out = {}, color = getcolor(), data = window.cdata[idx],
+	close = button("close", "x");
 	close.onclick = function(){ rmcourse(this.parentNode.parentNode); };
 	title.innerHTML = data.n;
 	title.appendChild(close);
