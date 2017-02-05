@@ -27,10 +27,22 @@ function unbind(){
 }
 /* called when program state is undefined */
 function tantrum(){
-	alert("Tetick does not know what is going on.");
-	alert("If you didn't do this using the developer console,");
-	alert("please mail duck2@protonmail.com about the incident.");
+	alert("I don't know what is going on");
+	alert("throw an alarm on Facebook or something this is big");
 }
+
+/* top menu links and table overlays */
+var els = [grab("about"), grab("wrong")];
+function hideall(){
+	for(var i=0; i<els.length; i++) els[i].style.display = "none";
+}
+function show(el){
+	hideall();
+	el.style.display = "block";
+}
+grab("about-link").onclick = function(){ show(grab("about")); };
+grab("wrong-link").onclick = function(){ show(grab("wrong")); };
+grab("about").onclick = grab("wrong").onclick = hideall;
 
 /* color palette. course colors are selected with getcolor() from this. */
 var palette = ["#fcdfdf", "#fcebdf", "#dffce1", "#dffcfa", "#dff3fc", "#dfe6fc", "#e4dffc", "#f0dffc"];
@@ -393,6 +405,7 @@ function compute(){
  * schedules, we ignore them while drawing. */
 function draw(){
 	var i;
+	hideall();
 	rmblocks();
 	end_time = 1050;
 	for(i=0; i<dontfills.length; i++) if(dontfills[i].e > end_time) end_time = dontfills[i].e;
@@ -470,6 +483,7 @@ new Awesomplete(grab("course-list"), {list: j});
 grab("add-musts").onclick = function(){
 	var i, musts = window.musts[grab("dept").value.toUpperCase()][grab("semester").value];
 	for(i=0; i<musts.length; i++) course(musts[i]);
+	if(courses[0]) courses[0].handle.children[0].click(); /* click its title */
 }
 
 grab("add").onclick = function(){
@@ -543,5 +557,7 @@ function load(){
 	if(h) restorestate(JSON.parse(atob(h)));
 }
 grab("save").onclick = save;
+
+/* main() :D */
 if(window.location.hash) load();
 draw();

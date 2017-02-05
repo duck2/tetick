@@ -8,6 +8,8 @@
 <div class="header">
 <a href="index.html">tetick.xyz</a>
 <a id="save">save</a>
+<a id="about-link">about</a>
+<a id="wrong-link">wrong!</a>
 </div>
 
 <div class="swallow">
@@ -18,7 +20,21 @@
 		<div id="state">blank</div>
 		<button id="next"> → </button>
 		</div>
-		<div style="position:relative;"><div id="start_time">8:40</div><div id="end_time">17:30</div><table>
+		<div style="position:relative;">
+		<div id="about" class="overlay"><div class="overchild">
+		w/love, by duck2.<br>
+		the code is available in <a href="https://github.com/libduck2/tetick">github</a>.<br><br>
+		knock duck2 at protonmail point com for any issues of tetick<br>or questions about life and God.
+		</div></div>
+		<div id="wrong" class="overlay"><div class="overchild">
+		<i>- wrong! your scheduler does the wrong thing! this course is not on 8:40-10:40!</i><br><br>
+		some departments hide their course times or just lie to oibs64 and publish their own schedules.(hello BA)<br><br>
+		however tetick is made to embrace weird departments, late night labs or 10:37-12:31 courses. <br>
+		<b>please</b> drop a mail(see "about" on top) about any course data issue.
+		</div></div>
+		<div id="start_time">8:40</div>
+		<div id="end_time">17:30</div>
+		<table>
 		<tr><td><div class="eatd" id="0"></div></td>
 		<td><div class="eatd" id="1"></div></td>
 		<td><div class="eatd" id="2"></div></td>
@@ -54,8 +70,7 @@
 
 <div class="footer">
 	<hr>
-	"we'd die for them, they consumed us<br>
-	you sing master, we draw razors" — hayalcash, 2011
+	arrow keys also work.
 </div>
 
 <script src="awesomplete.js"></script>
