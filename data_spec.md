@@ -1,8 +1,8 @@
 # tetick course data format, an informal spec
 
-data.json and musts.json are raw course data, used in tetick explorer.
+data.json and musts.json are raw course data, used in bois64.
 
-in the main app, a stripped version data.js is used, containing both course data and
+in tetick, a stripped version data.js is used, containing both course data and
 "must" courses of undergraduate programs.
 
 the course data is organized in the following way:
@@ -34,8 +34,6 @@ the data for compulsory courses are organized in the following way:
 `{TERM_NUMBER: COURSE_IDS}`
 3. COURSE_IDS is a JSON array of the type
 `[COURSE_ID1, COURSE_ID2...]` containing the full course IDs e.g. 2460154 of compulsory courses.
-
-these are for tetick explorer. data is modified for tetick.xyz usage.
 
 tetick.xyz `data.js` is valid javascript of the form
 ```
