@@ -552,9 +552,9 @@ function restorestate(st){
 	grab("dept").value = st.dp;
 	grab("semester").value = st.t;
 	grab("surname").value = st.sn;
-	grab("sncheck").checked = st.sc === 1 ? true : false;
-	grab("nodeptcheck").checked = st.dc === 1 ? true : false;
-	grab("allphantom").checked = st.ap === 1 ? true : false;
+	grab("sncheck").checked = st.sc ? true : false;
+	grab("nodeptcheck").checked = st.dc ? true : false;
+	grab("allphantom").checked = st.ap ? true : false;
 
 	if(courses.length > 0) make();
 	cursched = st.n;
