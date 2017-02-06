@@ -339,7 +339,7 @@ function digest(sects){
 		}
 		out.push(node);
 	}
-	out.sort(function(a, b){ if(hasphantom(a) && hasphantom(b)) return -1; return 1; });
+	out.sort(function(a, b){ if(!hasphantom(a) && hasphantom(b)) return -1; return 1; });
 	return out;
 }
 /* see if this schedule is viable */
@@ -499,21 +499,24 @@ grab("sncheck").onchange = grab("surname").onchange = grab("nodeptcheck").onchan
  * the state is stored like
  * {d: dontfills, n: current schedule, c: courses, dp: dept, t: term, sc, dc, ap: surname, dept, all phantom?, sn: surname}
  * the courses are stored like
- * {n: name, s: not checked sections} */
+ * {n: name, s: not checked sections, u, d, p: surname check, dept check, phantom checkboxes.}
+ * TODO: pls make a shorthand for hnd.getElementsByClassName it is too long TOO MANy keystrokes */
 function getstate(){
 	var i, j, out = {};
 	out.d = dontfills;
 	out.n = cursched;
 	out.c = [];
 	for(i=0; i<courses.length; i++){
-		var boxes, node = {};
-		node.c = courses[i].color;
+		var boxes, node = {}, hnd = courses[i].handle;
 		node.n = courses[i].data.n;
 		node.s = [];
-		boxes = courses[i].handle.getElementsByClassName("boxes")[0].querySelectorAll("input[type=checkbox]:not(:checked)");
+		boxes = hnd.getElementsByClassName("boxes")[0].querySelectorAll("input[type=checkbox]:not(:checked)");
 		for(j=0; j<boxes.length; j++){
 			node.s.push(boxes[j].nextSibling.data);
 		}
+		node.u = hnd.getElementsByClassName("sname")[0].checked ? 1 : 0;
+		node.d = hnd.getElementsByClassName("nodept")[0].checked ? 1 : 0;
+		node.p = hnd.getElementsByClassName("phantom")[0].checked ? 1 : 0;
 		out.c.push(node);
 	}
 	out.dp = grab("dept").value;
@@ -542,6 +545,9 @@ function restorestate(st){
 		for(j=0; j<boxes.length; j++){
 			if(st.c[i].s.indexOf(boxes[j].nextSibling.data) > -1) boxes[j].checked = false;
 		}
+		c.handle.getElementsByClassName("sname")[0].checked = st.c[i].u ? true : false;
+		c.handle.getElementsByClassName("nodept")[0].checked = st.c[i].d ? true : false;
+		c.handle.getElementsByClassName("phantom")[0].checked = st.c[i].p ? true : false;
 	}
 	grab("dept").value = st.dp;
 	grab("semester").value = st.t;
