@@ -44,9 +44,9 @@ button {
 }
 
 .schedule {
-	-webkit-box-flex: 1;
-	    -ms-flex: 1 0 40em;
-	        flex: 1 0 40em;
+	-webkit-box-flex: 100;
+	    -ms-flex: 100 0 40em;
+	        flex: 100 0 40em;
 }
 
 .nav {
