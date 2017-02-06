@@ -30,8 +30,11 @@ button {
 
 /* swallows everything */
 .swallow {
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
-	flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	    flex-wrap: wrap;
 	margin: 2em 1em;
 	padding: 4%;
 }
@@ -41,15 +44,22 @@ button {
 }
 
 .schedule {
-	flex-basis: 60%;
-	flex-grow: 100;
+	-ms-flex-preferred-size: 60%;
+	    flex-basis: 60%;
+	-webkit-box-flex: 100;
+	    -ms-flex-positive: 100;
+	        flex-grow: 100;
 }
 
 .nav {
 	position: relative;
 	margin-bottom: 1%;
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
-	justify-content: center;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
 }
 .overlay {
 	position: absolute;
@@ -85,9 +95,15 @@ td { min-width: 8em; border: 1px solid black; height: 25em; }
 .block {
 	position: absolute;
 	width: 100%;
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
-	align-items: center;
-	justify-content: center;
+	-webkit-box-align: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
 	text-align: center;
 	cursor: pointer;
 }
@@ -102,10 +118,18 @@ button#dontfill { height: 1.6em; }
 
 /* row holds the options and course list */
 .row {
-	flex-basis: 35%;
-	flex-grow: 1;
+	-ms-flex-preferred-size: 35%;
+	    flex-basis: 35%;
+	-webkit-box-flex: 1;
+	    -ms-flex-positive: 1;
+	        flex-grow: 1;
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
-	flex-direction: column;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	    -ms-flex-direction: column;
+	        flex-direction: column;
 }
 
 .short {
@@ -135,8 +159,13 @@ button#make {
 .courses {
 	background-color: #eee;
 	margin-top: 0.5em;
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
-	flex-direction: column;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	    -ms-flex-direction: column;
+	        flex-direction: column;
 }
 
 .title { 
@@ -151,6 +180,7 @@ button#make {
 	padding-left: 0.8em;
 	padding-right: 0.8em;
 	overflow: hidden;
+	-webkit-transition: 0.4s ease-in-out;
 	transition: 0.4s ease-in-out;
 }
 .show { max-height: 30em; }
