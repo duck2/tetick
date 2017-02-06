@@ -87,6 +87,9 @@ table {
 	border-collapse: collapse;
 	height: 100%;
 	width: 100%;
+	-webkit-box-flex: 0;
+	    -ms-flex: 0 0 65%;
+	        flex: 0 0 65%;
 }
 
 /* eatd is there for block alignment */
@@ -130,6 +133,8 @@ button#dontfill { height: 1.6em; }
 	-webkit-box-direction: normal;
 	    -ms-flex-direction: column;
 	        flex-direction: column;
+	-ms-flex: 1 0 35%;
+	    flex: 1 0 35%;
 }
 
 .short {
