@@ -4,13 +4,14 @@ tetick is a course scheduler which takes course data and constructs possible sch
 
 a version of it should be on [tetick.xyz](http://tetick.xyz).
 
-```
-make
-```
+## getting started
 
-should run the scrapers, minify and inline the file into www/index.html.
+`make` should run the scrapers, minify and inline the file into www/index.html.
 
-after getting the data `make` is not needed during development, index.html in the directory will work.
+after getting the data, `make` is not needed during development. index.html in the directory will work.
+
+the code is <600 lines of commented, vanilla JS. highly operational core is ~100 lines.
+you can start reading from compute().
 
 ## features
 

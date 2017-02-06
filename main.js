@@ -348,7 +348,7 @@ function viable(sch){
 	for(i=1; i<sch.length; i++) if(sch[i].d == sch[i-1].d && (sch[i].s < sch[i-1].e || sch[i].s == sch[i-1].s)) return false;
 	return true;
 }
-/* tuck an array of time periods into our sorted time period array, return new array.
+/* tuck an array of time periods into our array of sorted time periods, return new array.
  * yes, this function is very specific and yes it clutters the Array prototype. (native tuck_multiple? :D)
  * however you can think of this as another part of the data monorail to compute().
  * tuck is simple binary search, finds an index to insert the new time period and then tucks it there. */
@@ -366,7 +366,8 @@ Array.prototype.tuck_multiple = function(times){
 	for(i=0; i<times.length; i++) tuck(out, times[i]);
 	return out;
 };
-/* we also need to get dontfills[] into a format suitable for compute. this will provide the core schedule. */
+/* we also need to get dontfills[] into a format suitable for compute- sorted by day and start time.
+ * this will provide the core schedule. */
 function eat_dontfills(){
 	return dontfills.slice().sort(function(a, b){if(b.d < a.d || (b.d == a.d && b.s < a.s)) return 1; return -1;});
 }
