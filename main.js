@@ -281,12 +281,12 @@ function ck_sect(sect, deptcheck, sncheck){
 	var i, dept=grab("dept").value, sname=grab("surname").value;
 	if(dept && deptcheck){
 		dept = dept.toUpperCase();
-		for(i=0; i<sect.c.length; i++) if(sect.c[i].d !== "ALL" && sect.c[i].d !== dept) return false;
+		for(i=0; i<sect.c.length; i++) if(sect.c[i].d === "ALL" || sect.c[i].d === dept) return true;
 	}
 	if(sname && sncheck){
 		sname = sname.toUpperCase();
 		var cmp = function(x){ return sname.localeCompare(x) };
-		for(i=0; i<sect.c.length; i++) if(cmp(sect.c[i].s, "tr") !== 1 || cmp(sect.c[i].e, "tr") !== -1) return false;
+		for(i=0; i<sect.c.length; i++) if(cmp(sect.c[i].s, "tr") === 1 && cmp(sect.c[i].e, "tr") === -1) return true;
 	}
 	return true;
 }
