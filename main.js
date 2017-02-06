@@ -529,7 +529,7 @@ function save(){
 	window.location.hash = btoa(JSON.stringify(getstate()));
 	if(saved) return;
 	alert("your settings are saved in the link.");
-	alert("you can bookmark this link(Ctrl+D) or share it with your peers, though I don't know why would you do that.");
+	alert("you can bookmark the link with Ctrl+D or paste it anywhere to share your schedule.");
 	saved = true;
 }
 /* this does not errorcheck because there is no point providing feedback if someone went to tetick.xyz#asdasf. */
