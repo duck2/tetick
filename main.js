@@ -42,7 +42,7 @@ function show(el){
 }
 grab("about-link").onclick = function(){ show(grab("about")); };
 grab("wrong-link").onclick = function(){ show(grab("wrong")); };
-grab("about").onclick = grab("wrong").onclick = hideall;
+grab("index").onclick = grab("about").onclick = grab("wrong").onclick = hideall;
 
 /* color palette. course colors are selected with getcolor() from this. */
 var palette = ["#fcdfdf", "#fcebdf", "#dffce1", "#dffcfa", "#dff3fc", "#dfe6fc", "#e4dffc", "#f0dffc"];
