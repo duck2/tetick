@@ -51,4 +51,5 @@ while transferring from data.json and musts.json to data.js:
 - start and end times are converted to minutes, like "08:40" -> 520
 - sections containing no time periods are removed since they cannot be included in the schedule anyway.
 - if a course has no sections left, it is also removed.
+- section criteria of departments "ALL" and surnames "AA"-"ZZ" are omitted.
 - course IDs of must courses are looked up in the course array and replaced with their corresponding indices.

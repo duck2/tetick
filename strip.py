@@ -15,9 +15,12 @@ def convert(tarr):
 	return [{"d": tnode["d"], "p": tnode["p"], "s": tomins(tnode["s"]), "e": tomins(tnode["e"])} for tnode in tarr]
 
 out = []
+# criteria with dept ALL and surnames AA-ZZ have no effect, no need to include them.
+def filterc(cs):
+	return [c for c in cs if not (c["s"] == "AA" and c["e"] == "ZZ" and c["d"] == "ALL")]
 for cnode in cdata_raw:
 	outc = {"c": cnode["c"], "n": cnode["n"]}
-	outc["s"] = {snum: {"c": snode["c"], "t": convert(snode["t"])} for snum, snode in cnode["s"].iteritems() if len(snode["t"]) > 0}
+	outc["s"] = {snum: {"c": filterc(snode["c"]), "t": convert(snode["t"])} for snum, snode in cnode["s"].iteritems() if len(snode["t"]) > 0}
 	if len(outc["s"]) > 0: out.append(outc)
 
 # look up a course ID in courses
