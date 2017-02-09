@@ -113,6 +113,11 @@ td { min-width: 8em; border: 1px solid black; height: 25em; }
 	text-align: center;
 }
 button#dontfill { height: 1.6em; }
+#fdate {
+	font-size: 0.8em;
+	margin: 1em;
+	color: #777;
+}
 
 /* row holds the options and course list */
 .row {

@@ -566,5 +566,6 @@ function load(){
 grab("save").onclick = save;
 
 /* main() :D */
+grab("fdate").innerHTML += window.fdate;
 if(window.location.hash) load();
 draw();

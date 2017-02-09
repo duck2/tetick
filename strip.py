@@ -31,10 +31,21 @@ for dept in musts_raw:
 	for term in musts_raw[dept]:
 		musts[dept][term] = [lookup(id) for id in musts_raw[dept][term] if lookup(id)]
 
+# it takes some work to read last modification time, convert to UTC and
+# strftime it out
+import pytz
+from datetime import datetime
+from tzlocal import get_localzone
+
+tz = get_localzone()
+mod = datetime.fromtimestamp(os.path.getmtime("data.json"))
+fdate = tz.localize(mod).astimezone(pytz.utc).strftime("%d %b %Y %H:%M UTC")
+
 a = """
+window.fdate = \"%s\";
 window.cdata = %s;
 window.musts = %s;
-""" % (json.dumps(out), json.dumps(musts))
+""" % (fdate, json.dumps(out), json.dumps(musts))
 
 with open("data.js", "w") as f:
 	f.write(a)

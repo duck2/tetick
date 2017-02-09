@@ -37,9 +37,13 @@ the data for compulsory courses are organized in the following way:
 
 tetick.xyz `data.js` is valid javascript of the form
 ```
+window.fdate=FETCH_DATE;
 window.cdata=COURSE_DATA;
 window.musts=MUST_COURSES;
 ```
+FETCH_DATE is a string containing the last modification time of data.json,
+in the `date` format `%d %b %Y %H:%M UTC`.
+e.g. "08 Feb 2017 21:39 UTC" naturally, we expect window.fdate to be stored in UTC.
 
 while transferring from data.json and musts.json to data.js:
 
