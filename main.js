@@ -289,6 +289,7 @@ function ck_sect(sect, deptcheck, sncheck){
 		if(cmp(c.s) >= 0 && cmp(c.e) <= 0) return true;
 		return false;
 	};
+	if(sect.c.length === 0) return true;
 	for(i=0; i<sect.c.length; i++) if(deptck(sect.c[i]) && snck(sect.c[i])) return true;
 	return false;
 }
