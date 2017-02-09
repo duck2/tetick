@@ -278,17 +278,19 @@ grab("dontfill").onclick = df_form;
 
 /* is this section fine with these values? deptcheck and sncheck are self explanatory. returns true if yes. */
 function ck_sect(sect, deptcheck, sncheck){
-	var i, dept=grab("dept").value, sname=grab("surname").value;
-	if(dept && deptcheck){
-		dept = dept.toUpperCase();
-		for(i=0; i<sect.c.length; i++) if(sect.c[i].d === "ALL" || sect.c[i].d === dept) return true;
-	}
-	if(sname && sncheck){
-		sname = sname.toUpperCase();
-		var cmp = function(x){ return sname.localeCompare(x) };
-		for(i=0; i<sect.c.length; i++) if(cmp(sect.c[i].s, "tr") === 1 && cmp(sect.c[i].e, "tr") === -1) return true;
-	}
-	return true;
+	var i, dept=grab("dept").value.toUpperCase(), sname=grab("surname").value.toUpperCase(),
+	deptck = function(c){
+		if(!dept || !deptcheck) return true;
+		if(c.d === "ALL" || c.d === dept) return true;
+		return false;
+	}, snck = function(c){
+		if(!sname || !sncheck) return true;
+		var cmp = function(x){ return sname.localeCompare(x, "tr"); };
+		if(cmp(c.s) >= 0 && cmp(c.e) <= 0) return true;
+		return false;
+	};
+	for(i=0; i<sect.c.length; i++) if(deptck(sect.c[i]) && snck(sect.c[i])) return true;
+	return false;
 }
 /* get all possible sections for currently added courses.
  * also put the section number in them as snode.n- we will need it later.
