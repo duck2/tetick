@@ -18,7 +18,7 @@ you can start reading from [compute()](https://github.com/libduck2/tetick/blob/m
 - uses time intervals instead of table cells
 - consistent collision checking for user-defined time blocks
 - reasonably fast until ~1M combinations
-- small- ~60KB gzipped *with* all course data
+- small- ~70KB gzipped *with* all course data
 
 ## non-features
 
