@@ -165,6 +165,9 @@ function course(idx){
 	close.onclick = function(){ rmcourse(this.parentNode.parentNode); };
 	title.innerHTML = data.n;
 	title.appendChild(close);
+	var ccode = divclass("ccode");
+	ccode.innerHTML = data.c;
+	title.appendChild(ccode);
 	title.onclick = function(){ tgcourse(this); };
 	outel.appendChild(title);
 	var i, box, boxdiv, boxes = divclass("boxes"), snums = Object.keys(data.s);
