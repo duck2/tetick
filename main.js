@@ -411,6 +411,10 @@ function compute(){
  * then we draw don't fills, then if state is not blank, we draw courses. there are don't fills in
  * schedules, we ignore them while drawing. */
 function draw(){
+	/*hides flashlight related buttons*/
+	document.getElementById("nextb").style.display = "none";
+	document.getElementById("prevb").style.display = "none";
+
 	var i;
 	hideall();
 	rmblocks();
@@ -578,20 +582,24 @@ draw();
 
 /* current opaque */
 var curopq;
-function phantomer(){
-	var i;
-	for (i=0; i<blocks.length; i++) blocks[i].style.opacity = 0.1;
+/*makes all blocks transparent except the first*/
+function flashlight(){
+	/*shows flashlight related buttons*/
+	document.getElementById("nextb").style.display = "initial";
+	document.getElementById("prevb").style.display = "initial";
+
+	for (var i=0; i<blocks.length; i++) blocks[i].style.opacity = 0.1;
 	curopq=0;
 	blocks[0].style.opacity = 0.9;
 }
 
-function nextp(){
+function nextb(){
 	blocks[curopq++].style.opacity = 0.1;
 	if (curopq>=blocks.length) curopq = 0;
 	blocks[curopq].style.opacity = 0.9;
 }
 
-function prevp(){
+function prevb(){
 	blocks[curopq--].style.opacity = 0.1;
 	if (curopq<0) curopq = blocks.length-1;
 	blocks[curopq].style.opacity = 0.9;
