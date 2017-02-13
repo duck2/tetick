@@ -10,7 +10,7 @@ var blocks = [];
 var courses = [];
 
 /* keeps track of "don't fill"s.
- * dontfills[i].d is day. dontfills[i].s is start. dontfills[i].e is end. 
+ * dontfills[i].d is day. dontfills[i].s is start. dontfills[i].e is end.
  * dontfills[i].block is the corresponding "Don't fill." block on the schedule. */
 var dontfills = [], dontfill_color="#ddd";
 
@@ -183,7 +183,7 @@ function course(idx){
 	toggle.onclick = function(){ tgboxes(this.parentNode); };
 	boxes.appendChild(toggle);
 	more.appendChild(boxes);
-	more.appendChild(mkopts());	
+	more.appendChild(mkopts());
 	outel.appendChild(more);
 	grabclass("courses")[0].appendChild(outel);
 	out.color = outel.style.backgroundColor = color;
@@ -231,7 +231,7 @@ function df_conflicts(df){
 }
 /* create a don't fill, on day d, from s to e.
  * the resulting node won't have any corresponding block until draw() is called.
- * can "unbind" the state if the resulting don't fill leaves no possible schedules. 
+ * can "unbind" the state if the resulting don't fill leaves no possible schedules.
  * TODO: checks for this so it does not set outside [start_time, end_time] */
 function dontfill(d, s, e){
 	var out = {"d": d, "s": s, "e": e, "block": {}};
@@ -300,7 +300,7 @@ function ck_sect(sect, deptcheck, sncheck){
  * also put the section number in them as snode.n- we will need it later.
  * returns an array of arrays, mapped to the courses array in practice.
  * each array has the suitable section nodes in it. */
-function get_sects(){	
+function get_sects(){
 	var i, j, n, node, boxes, deptcheck, sncheck, out = [];
 	for(i=0; i<courses.length; i++){
 		node = [];
@@ -332,7 +332,7 @@ function hasphantom(sect){
 function digest(sects){
 	var i, j, k, node, out = [];
 	for(i=0; i<sects.length; i++){
-		node = [];	
+		node = [];
 		var color = courses[i].color, name = courses[i].data.n.split(" -")[0],
 		phantom = grab("allphantom").checked || courses[i].handle.getElementsByClassName("phantom")[0].checked;
 		for(j=0; j<sects[i].length; j++){
@@ -575,3 +575,35 @@ grab("save").onclick = save;
 grab("fdate").innerHTML += window.fdate;
 if(window.location.hash) load();
 draw();
+
+var lectList;
+var lectHead;
+function phantomer(){
+	lectList = document.querySelectorAll("div.eatd > div");
+	/*phantoms every lecture*/
+	var i;
+	for (i = 0; i < lectList.length; i++) {
+    	lectList[i].style.opacity = "0.1";
+	}
+	/*The first one should stay normal*/
+	lectHead=0
+	lectList[0].style.opacity = "0.9"
+}
+
+function nextp(){
+	lectList[lectHead].style.opacity = "0.1"
+	lectHead++;
+	if (lectHead>=lectList.length){
+		lectHead-=lectList.length;
+	}
+	lectList[lectHead].style.opacity = "0.9"
+}
+
+function prevp(){
+	lectList[lectHead].style.opacity = "0.1"
+	lectHead--;
+	if (lectHead<0){
+		lectHead=lectList.length-1;
+	}
+	lectList[lectHead].style.opacity = "0.9"
+}
