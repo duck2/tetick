@@ -579,30 +579,20 @@ draw();
 /* current opaque */
 var curopq;
 function phantomer(){
-	/*phantoms every lecture*/
 	var i;
-	for (i=0; i<blocks.length; i++){
-	blocks[i].style.opacity = "0.1";
-	}
-	/*The first one should stay normal*/
+	for (i=0; i<blocks.length; i++) blocks[i].style.opacity = 0.1;
 	curopq=0;
 	blocks[0].style.opacity = 0.9;
 }
 
 function nextp(){
-	blocks[curopq].style.opacity = "0.1"
-	curopq++;
-	if (curopq>=blocks.length){
-		curopq-=blocks.length;
-	}
-	blocks[curopq].style.opacity = "0.9"
+	blocks[curopq++].style.opacity = 0.1;
+	if (curopq>=blocks.length) curopq = 0;
+	blocks[curopq].style.opacity = 0.9;
 }
 
 function prevp(){
-	blocks[curopq].style.opacity = "0.1"
-	curopq--;
-	if (curopq<0){
-		curopq=blocks.length-1;
-	}
-	blocks[curopq].style.opacity = "0.9"
+	blocks[curopq--].style.opacity = 0.1;
+	if (curopq<0) curopq = blocks.length-1;
+	blocks[curopq].style.opacity = 0.9;
 }
