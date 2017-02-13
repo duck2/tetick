@@ -576,34 +576,33 @@ grab("fdate").innerHTML += window.fdate;
 if(window.location.hash) load();
 draw();
 
-var lectList;
-var lectHead;
+/* current opaque */
+var curopq;
 function phantomer(){
-	lectList = document.querySelectorAll("div.eatd > div");
 	/*phantoms every lecture*/
 	var i;
-	for (i = 0; i < lectList.length; i++) {
-    	lectList[i].style.opacity = "0.1";
+	for (i=0; i<blocks.length; i++){
+	blocks[i].style.opacity = "0.1";
 	}
 	/*The first one should stay normal*/
-	lectHead=0
-	lectList[0].style.opacity = "0.9"
+	curopq=0;
+	blocks[0].style.opacity = 0.9;
 }
 
 function nextp(){
-	lectList[lectHead].style.opacity = "0.1"
-	lectHead++;
-	if (lectHead>=lectList.length){
-		lectHead-=lectList.length;
+	blocks[curopq].style.opacity = "0.1"
+	curopq++;
+	if (curopq>=blocks.length){
+		curopq-=blocks.length;
 	}
-	lectList[lectHead].style.opacity = "0.9"
+	blocks[curopq].style.opacity = "0.9"
 }
 
 function prevp(){
-	lectList[lectHead].style.opacity = "0.1"
-	lectHead--;
-	if (lectHead<0){
-		lectHead=lectList.length-1;
+	blocks[curopq].style.opacity = "0.1"
+	curopq--;
+	if (curopq<0){
+		curopq=blocks.length-1;
 	}
-	lectList[lectHead].style.opacity = "0.9"
+	blocks[curopq].style.opacity = "0.9"
 }
