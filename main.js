@@ -582,7 +582,8 @@ draw();
 var curopq;
 var flashlighton = 0;
 /* enable the user to iterate through drawn blocks one block a time, so they can see overlapping courses
- * when there are phantom courses this results in non-intuitive iteration, so we sort the schedule */
+ * when there are phantom courses this results in non-intuitive iteration, so we sort the schedule.
+ * both toggles trigger a draw(). */
 function flashlight(){
 	if(!blocks.length) return;
 	if(flashlighton){
