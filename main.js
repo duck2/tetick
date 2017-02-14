@@ -413,7 +413,7 @@ function compute(){
 function draw(){
 	var i;
 	grab("nextb").style.display = grab("prevb").style.display = "none"; /* a table reset */
-	isflashlighton = 0;
+	flashlighton = 0;
 	hideall();
 	rmblocks();
 	end_time = 1050;
