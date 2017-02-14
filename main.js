@@ -608,3 +608,6 @@ function prevb(){
 	if(curopq<0) curopq = blocks.length-1;
 	blocks[curopq].style.opacity = 0.9;
 }
+grab("fl").onclick = flashlight;
+grab("prevb").onclick = prevb;
+grab("nextb").onclick = nextb;
