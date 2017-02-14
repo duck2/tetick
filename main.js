@@ -580,21 +580,21 @@ draw();
 
 /* current opaque */
 var curopq;
-var isflashlighton = 0;
+var flashlighton = 0;
 /* enable the user to iterate through drawn blocks one block a time, so they can see overlapping courses */
 function flashlight(){
 	if(!blocks.length) return;
-	if(isflashlighton==1){
+	if(flashlighton){
 		grab("prevb").style.display = grab("nextb").style.display = "none";
 		for (var i=0; i<blocks.length; i++) blocks[i].style.opacity = "initial";
-		isflashlighton = 0;
-	}else{
-		grab("prevb").style.display = grab("nextb").style.display = "initial";
-		for (var i=0; i<blocks.length; i++) blocks[i].style.opacity = 0.1;
-		curopq=0;
-		blocks[0].style.opacity = 0.9;
-		isflashlighton=1;
+		flashlighton=0;
+		return;
 	}
+	grab("prevb").style.display = grab("nextb").style.display = "initial";
+	for (var i=0; i<blocks.length; i++) blocks[i].style.opacity = 0.1;
+	curopq=0;
+	blocks[0].style.opacity = 0.9;
+	flashlighton=1;
 }
 function nextb(){
 	blocks[curopq++].style.opacity = 0.1;
