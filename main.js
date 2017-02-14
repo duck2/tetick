@@ -372,10 +372,10 @@ Array.prototype.tuck_multiple = function(times){
 	for(i=0; i<times.length; i++) tuck(out, times[i]);
 	return out;
 };
-/* we also need to get dontfills[] into a format suitable for compute- sorted by day and start time.
- * this will provide the core schedule. */
-function eat_dontfills(){
-	return dontfills.slice().sort(function(a, b){if(b.d < a.d || (b.d == a.d && b.s < a.s)) return 1; return -1;});
+/* sort the schedule wrt day and start time */
+function sortsch(sch){
+	sch.sort(function(a, b){if(b.d < a.d || (b.d == a.d && b.s < a.s)) return 1; return -1;});
+	return sch;
 }
 /* compute possible schedules. returns true if all went fine, false if no possible schedules.
  * since this will be exponential with course count anyway, we do some kind of branch elimination.
@@ -383,7 +383,7 @@ function eat_dontfills(){
  * we do this by maintaining sorted arrays of time periods. this is because it makes checking overlaps
  * as easy as checking if any period's start time is before the end time of the previous period. */
 function compute(){
-	var i, j, k, out = [eat_dontfills()], out_nxt, sects = digest(get_sects());
+	var i, j, k, out = [sortsch(dontfills)], out_nxt, sects = digest(get_sects());
 	for(i=0; i<sects.length; i++){
 		out_nxt = [];
 		if(hasphantom(sects[i])) break;
@@ -581,15 +581,16 @@ draw();
 /* current opaque */
 var curopq;
 var flashlighton = 0;
-/* enable the user to iterate through drawn blocks one block a time, so they can see overlapping courses */
+/* enable the user to iterate through drawn blocks one block a time, so they can see overlapping courses
+ * when there are phantom courses this results in non-intuitive iteration, so we sort the schedule */
 function flashlight(){
 	if(!blocks.length) return;
 	if(flashlighton){
 		grab("prevb").style.display = grab("nextb").style.display = "none";
-		for (var i=0; i<blocks.length; i++) blocks[i].style.opacity = "initial";
-		flashlighton=0;
+		draw();
 		return;
 	}
+	sortsch(schedules[cursched]); draw();
 	grab("prevb").style.display = grab("nextb").style.display = "initial";
 	for (var i=0; i<blocks.length; i++) blocks[i].style.opacity = 0.1;
 	curopq=0;
