@@ -587,22 +587,21 @@ var curopq;
 var isflashlighton = 0;
 /*makes all blocks transparent except the first*/
 function flashlight(){
-	if(blocks.length){
-		if (isflashlighton==1){
-			document.getElementById("nextb").style.display = "none";
-			document.getElementById("prevb").style.display = "none";
-			for (var i=0; i<blocks.length; i++) blocks[i].style.opacity = "initial";
-			isflashlighton = 0;
-		}else{
-			/*shows flashlight related buttons*/
-			document.getElementById("nextb").style.display = "initial";
-			document.getElementById("prevb").style.display = "initial";
+	if(!blocks.length) return;
+	if (isflashlighton==1){
+		document.getElementById("nextb").style.display = "none";
+		document.getElementById("prevb").style.display = "none";
+		for (var i=0; i<blocks.length; i++) blocks[i].style.opacity = "initial";
+		isflashlighton = 0;
+	}else{
+		/*shows flashlight related buttons*/
+		document.getElementById("nextb").style.display = "initial";
+		document.getElementById("prevb").style.display = "initial";
 
-			for (var i=0; i<blocks.length; i++) blocks[i].style.opacity = 0.1;
-			curopq=0;
-			blocks[0].style.opacity = 0.9;
-			isflashlighton=1;
-		}
+		for (var i=0; i<blocks.length; i++) blocks[i].style.opacity = 0.1;
+		curopq=0;
+		blocks[0].style.opacity = 0.9;
+		isflashlighton=1;
 	}
 }
 
