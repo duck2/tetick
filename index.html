@@ -32,44 +32,49 @@
 		however tetick is made to embrace weird departments, late night labs or 10:37-12:31 courses. <br>
 		<b>please</b> drop a mail(see "about" on top) about any course data issue.
 		</div></div>
-		<div id="start_time">8:40</div>
-		<div id="end_time">17:30</div>
-		<table>
-		<tr><td><div class="eatd" id="0"></div></td>
-		<td><div class="eatd" id="1"></div></td>
-		<td><div class="eatd" id="2"></div></td>
-		<td><div class="eatd" id="3"></div></td>
-		<td><div class="eatd" id="4"></div></td>
-		</tr></table></div>
+		<div>
+			<table>
+				<tr>
+					<div id="start_time">8:40</div>
+					<div id="end_time">17:30</div>
+					<td><div class="eatd" id="0"></div></td>
+					<td><div class="eatd" id="1"></div></td>
+					<td><div class="eatd" id="2"></div></td>
+					<td><div class="eatd" id="3"></div></td>
+					<td><div class="eatd" id="4"></div></td>
+				</tr>
+			</table>
+		</div>
+		</div>
 		<div class="form">
 		day(1-5) <input class="short" id="d">, between <input class="short" id="s"> and <input class="short" id="e">
-		<button id="dontfill"> don't fill </button>
+		<button id="dontfill"> Don't fill </button>
 		<div class="flashlight">
-		<button id="prevb">prev</button>
-		<button id="fl">flashlight</button>
-		<button id="nextb">next</button>
+		<button id="prevb">Prev</button>
+		<button id="fl">Flashlight</button>
+		<button id="nextb">Next</button>
 		</div>
 		<div id="fdate">course data is from </div>
 		</div>
 	</div>
 	<div class="row">
 		<div class="options">
-			<div>dept, like fle or me: <input id="dept" class="short"></div>
-			<div>semester: <input id="semester" class="short"></div>
-			<div><button id="add-musts">add must courses</button></div>
+			<div>Department: <input id="dept" style="margin-left:39px;" class="mid" placeholder="EE, MINE etc."></div>
+			<div>Semester Number: <input id="semester" class="mid"></div>
+			<div><button id="add-musts">Add must courses</button></div>
 			<div>
-				<input type="checkbox" id="sncheck"> check for my surname, 2 letters: <input id="surname" class="short"> <br>
+				<input type="checkbox" id="sncheck"> Check for my surname, 2 letters: <input id="surname" class="short"> <br>
 			</div>
-			<div><input type="checkbox" id="nodeptcheck"> don't check for dept</div>
-			<div><input type="checkbox" id="allphantom"> all courses phantom </div>
+			<div><input type="checkbox" id="nodeptcheck"> Don't check for dept</div>
+			<div><input type="checkbox" id="allphantom"> All courses phantom </div>
 			<div>
-				course: <input class="awesomplete" onclick="this.value='';" id="course-list" data-maxitems="5">
-				<button id="add"> add </button>
+				Course: <input class="awesomplete" onclick="this.value='';" id="course-list" data-maxitems="5">
+				<button id="add"> Add </button>
 			</div>
-			<button id="make"> make schedule </button>
+			<button id="make"> Make schedule </button>
 		</div>
 		<div class="courses">
-			<div style="text-align: center; margin: 0.8em;"> current courses </div>
+			<div style="text-align: center; margin: 0.8em; font-weight: bold;"> Current courses </div>
 		</div>
 	</div>
 </div>

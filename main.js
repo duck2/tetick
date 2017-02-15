@@ -46,6 +46,7 @@ grab("index").onclick = grab("about").onclick = grab("wrong").onclick = hideall;
 
 /* color palette. course colors are selected with getcolor() from this. */
 var palette = ["#fcdfdf", "#fcebdf", "#dffce1", "#dffcfa", "#dff3fc", "#dfe6fc", "#e4dffc", "#f0dffc"];
+var oldpalette = ["#B56357", "#945D60", "#626E60","#52658F", "#67AECA", "#373F27", "#CDA34F", "#3C3C3C"]
 /* shuffle palette, get next color. if we run out of colors, shuffle again.
  * http://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array */
 function shuffle(a) {

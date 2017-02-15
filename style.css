@@ -4,16 +4,36 @@ html, body {
 	height: 100%;
 	font-family: sans-serif;
 	font-size: 10pt;
+	color: #3c3c3c;
+
 }
 
 button {
-	background-color: #eee;
-	border: 1px solid #ddd;
-	height: 1.6em;
+	border: solid #af473c;
+	border-radius: 5px;
+	height: 1.9em;
+	margin: .4em;
+	background-color: #af473c;
+	color: #ffd;
+}
+
+button#add-musts {
+	width: 100%;
+	height: 2.5em;
+}
+
+button#make {
+	width: 100%;
+	height: 2.5em;
+	margin-top: 0.5em;
+}
+
+#course-list{
+	top:10px;
 }
 
 .header {
-	background-color: #eee;
+	background-color: #626E60;
 	top: 0px;
 	padding: 0.8em;
 	font-size: 12pt;
@@ -22,12 +42,11 @@ button {
 .header a {
 	padding: 0.8em;
 	height: 100%;
-	color: #222;
+	color: #fff;
 	cursor: pointer;
-	text-decoration: underline;
 }
 
-.header a:hover {background-color: #ddd;}
+.header a:hover {background-color: hsla(153, 43%, 15%, .5);}
 
 /* swallows everything */
 .swallow {
@@ -80,11 +99,12 @@ button {
 	margin: 0 1% 0 1%;
 }
 
-table {
+table{
 	border-collapse: collapse;
-	height: 100%;
 	width: 100%;
+	height: 100%;
 }
+
 
 /* eatd is there for block alignment */
 td{min-width: 8em; border: 1px solid black; height: 25em;}
@@ -102,10 +122,11 @@ td{min-width: 8em; border: 1px solid black; height: 25em;}
 	    -ms-flex-pack: center;
 	        justify-content: center;
 	text-align: center;
+	font-weight:500;
 	cursor: pointer;
 }
-#start_time{position: absolute; top: 5px; left: 5px;}
-#end_time{position: absolute; bottom:5px; left: 5px;}
+#start_time{position: absolute; top: 2%; left: 5px;}
+#end_time{position: absolute; top: 94%; left: 5px;}
 
 .form {
 	margin: 2%;
@@ -137,23 +158,17 @@ td{min-width: 8em; border: 1px solid black; height: 25em;}
 	width: 2.5em;
 }
 
+.mid{
+	width:6.0em;
+}
+
 .options > * {
 	margin: 1em 0 0 0;
 }
 
-button#add-musts {
-	width: 100%;
-	height: 2.5em;
-}
-
-button#make {
-	width: 100%;
-	height: 2.5em;
-	margin-top: 0.5em;
-	background-color: #ffd;
-}
-
 .courses {
+	border: solid 1px #af473c;
+	border-radius: 4px;
 	background-color: #eee;
 	margin-top: 0.5em;
 	display: -webkit-box;
