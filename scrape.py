@@ -3,6 +3,9 @@ import os, re
 import json
 import requests
 
+import codecs, sys
+sys.stdout = codecs.getwriter("UTF-8")(sys.stdout)
+
 # this scrapes oibs64 for all the course data.
 # see data_spec.md for interpreting out_file.
 # be aware- spits a lot of output to stdout.
