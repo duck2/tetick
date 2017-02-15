@@ -9,6 +9,7 @@ html, body {
 button {
 	background-color: #eee;
 	border: 1px solid #ddd;
+	height: 1.6em;
 }
 
 .header {
@@ -68,9 +69,7 @@ button {
 	z-index: 3;
 	border: 1px solid black;
 }
-.overchild {
-	margin: 2%;
-}
+.overchild{margin: 2%;}
 
 #state{
 	position: absolute;
@@ -88,8 +87,8 @@ table {
 }
 
 /* eatd is there for block alignment */
-td { min-width: 8em; border: 1px solid black; height: 25em; }
-.eatd { position: relative; height: 100%; cursor: pointer; }
+td{min-width: 8em; border: 1px solid black; height: 25em;}
+.eatd{position: relative; height: 100%; cursor: pointer;}
 .block {
 	position: absolute;
 	width: 100%;
@@ -105,17 +104,16 @@ td { min-width: 8em; border: 1px solid black; height: 25em; }
 	text-align: center;
 	cursor: pointer;
 }
-#start_time {position: absolute; top: 5px; left: 5px;}
-#end_time {position: absolute; bottom:5px; left: 5px;}
+#start_time{position: absolute; top: 5px; left: 5px;}
+#end_time{position: absolute; bottom:5px; left: 5px;}
 
 .form {
 	margin: 2%;
 	text-align: center;
 }
-button#dontfill { height: 1.6em; }
+.flashlight{margin: 0.5em;}
 #fdate {
 	font-size: 0.8em;
-	margin: 1em;
 	color: #777;
 }
 
@@ -146,10 +144,6 @@ button#dontfill { height: 1.6em; }
 button#add-musts {
 	width: 100%;
 	height: 2.5em;
-}
-
-button#add {
-	height: 1.6em;
 }
 
 button#make {

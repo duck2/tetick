@@ -10,7 +10,7 @@ var blocks = [];
 var courses = [];
 
 /* keeps track of "don't fill"s.
- * dontfills[i].d is day. dontfills[i].s is start. dontfills[i].e is end. 
+ * dontfills[i].d is day. dontfills[i].s is start. dontfills[i].e is end.
  * dontfills[i].block is the corresponding "Don't fill." block on the schedule. */
 var dontfills = [], dontfill_color="#ddd";
 
@@ -183,7 +183,7 @@ function course(idx){
 	toggle.onclick = function(){ tgboxes(this.parentNode); };
 	boxes.appendChild(toggle);
 	more.appendChild(boxes);
-	more.appendChild(mkopts());	
+	more.appendChild(mkopts());
 	outel.appendChild(more);
 	grabclass("courses")[0].appendChild(outel);
 	out.color = outel.style.backgroundColor = color;
@@ -231,7 +231,7 @@ function df_conflicts(df){
 }
 /* create a don't fill, on day d, from s to e.
  * the resulting node won't have any corresponding block until draw() is called.
- * can "unbind" the state if the resulting don't fill leaves no possible schedules. 
+ * can "unbind" the state if the resulting don't fill leaves no possible schedules.
  * TODO: checks for this so it does not set outside [start_time, end_time] */
 function dontfill(d, s, e){
 	var out = {"d": d, "s": s, "e": e, "block": {}};
@@ -300,7 +300,7 @@ function ck_sect(sect, deptcheck, sncheck){
  * also put the section number in them as snode.n- we will need it later.
  * returns an array of arrays, mapped to the courses array in practice.
  * each array has the suitable section nodes in it. */
-function get_sects(){	
+function get_sects(){
 	var i, j, n, node, boxes, deptcheck, sncheck, out = [];
 	for(i=0; i<courses.length; i++){
 		node = [];
@@ -332,7 +332,7 @@ function hasphantom(sect){
 function digest(sects){
 	var i, j, k, node, out = [];
 	for(i=0; i<sects.length; i++){
-		node = [];	
+		node = [];
 		var color = courses[i].color, name = courses[i].data.n.split(" -")[0],
 		phantom = grab("allphantom").checked || courses[i].handle.getElementsByClassName("phantom")[0].checked;
 		for(j=0; j<sects[i].length; j++){
@@ -372,10 +372,10 @@ Array.prototype.tuck_multiple = function(times){
 	for(i=0; i<times.length; i++) tuck(out, times[i]);
 	return out;
 };
-/* we also need to get dontfills[] into a format suitable for compute- sorted by day and start time.
- * this will provide the core schedule. */
-function eat_dontfills(){
-	return dontfills.slice().sort(function(a, b){if(b.d < a.d || (b.d == a.d && b.s < a.s)) return 1; return -1;});
+/* sort the schedule wrt day and start time */
+function sortsch(sch){
+	sch.sort(function(a, b){if(b.d < a.d || (b.d == a.d && b.s < a.s)) return 1; return -1;});
+	return sch;
 }
 /* compute possible schedules. returns true if all went fine, false if no possible schedules.
  * since this will be exponential with course count anyway, we do some kind of branch elimination.
@@ -383,7 +383,7 @@ function eat_dontfills(){
  * we do this by maintaining sorted arrays of time periods. this is because it makes checking overlaps
  * as easy as checking if any period's start time is before the end time of the previous period. */
 function compute(){
-	var i, j, k, out = [eat_dontfills()], out_nxt, sects = digest(get_sects());
+	var i, j, k, out = [sortsch(dontfills)], out_nxt, sects = digest(get_sects());
 	for(i=0; i<sects.length; i++){
 		out_nxt = [];
 		if(hasphantom(sects[i])) break;
@@ -412,6 +412,8 @@ function compute(){
  * schedules, we ignore them while drawing. */
 function draw(){
 	var i;
+	grab("nextb").style.display = grab("prevb").style.display = "none"; /* a table reset */
+	flashlighton = 0;
 	hideall();
 	rmblocks();
 	end_time = 1050;
@@ -575,3 +577,37 @@ grab("save").onclick = save;
 grab("fdate").innerHTML += window.fdate;
 if(window.location.hash) load();
 draw();
+
+/* current opaque */
+var curopq;
+var flashlighton = 0;
+/* enable the user to iterate through drawn blocks one block a time, so they can see overlapping courses
+ * when there are phantom courses this results in non-intuitive iteration, so we sort the schedule.
+ * both toggles trigger a draw(). */
+function flashlight(){
+	if(!blocks.length) return;
+	if(flashlighton){
+		grab("prevb").style.display = grab("nextb").style.display = "none";
+		draw();
+		return;
+	}
+	sortsch(schedules[cursched]); draw();
+	grab("prevb").style.display = grab("nextb").style.display = "initial";
+	for (var i=0; i<blocks.length; i++) blocks[i].style.opacity = 0.1;
+	curopq=0;
+	blocks[0].style.opacity = 0.9;
+	flashlighton=1;
+}
+function nextb(){
+	blocks[curopq++].style.opacity = 0.1;
+	if(curopq>=blocks.length) curopq = 0;
+	blocks[curopq].style.opacity = 0.9;
+}
+function prevb(){
+	blocks[curopq--].style.opacity = 0.1;
+	if(curopq<0) curopq = blocks.length-1;
+	blocks[curopq].style.opacity = 0.9;
+}
+grab("fl").onclick = flashlight;
+grab("prevb").onclick = prevb;
+grab("nextb").onclick = nextb;
