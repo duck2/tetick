@@ -85,7 +85,7 @@ a = "<TR>[^<]*<TD><FONT FACE=ARIAL>([^<]*)</FONT></TD>[^<]*<TD><FONT FACE=ARIAL>
 time_prog=re.compile(a*5)
 # we also need a helper function for this, 20 element tuples are not really easy things to work with.
 # this directly returns the times array defined in spec, for a particular section.
-days={"Monday": 0, "Tuesday": 1, "Wednesday": 2, "Thursday": 3, "Friday": 4}
+days={"Monday": 0, "Tuesday": 1, "Wednesday": 2, "Thursday": 3, "Friday": 4, "Saturday": 5, "Sunday": 6}
 def eat_time(raw):
 	out=[]
 	for i in xrange(0, 20, 4):
