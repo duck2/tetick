@@ -1,113 +1,98 @@
-html, body {
-	margin: 0px;
-	padding: 0px;
-	height: 100%;
-	font-family: sans-serif;
-	font-size: 10pt;
-	color: #3c3c3c;
-
+header{
+    color: #fff;
+    background-color: #15DC96;
+    height: 45px;
+    padding-left: 20px;
 }
 
-button {
-	border: solid #af473c;
-	border-radius: 5px;
-	height: 1.9em;
-	margin: .4em;
-	background-color: #af473c;
-	color: #ffd;
+header .headerbrand{
+    border-color: #15DC96;
+    font-size: 1em;
+    height: 100%;
 }
 
-button#add-musts {
-	width: 100%;
-	height: 2.5em;
+header .headerbrand:hover{
+    border-color: #15DC96;
+    background-color: #10b578;
+    border-radius: 0;
 }
 
-button#make {
-	width: 100%;
-	height: 2.5em;
-	margin-top: 0.5em;
+header .headerbutton{
+    border-color: #15DC96;
+    border-radius: 0;
+    text-transform: none;
+    font-size: .9em;
+    font-weight: normal;
 }
 
-#course-list{
-	top:10px;
+header .headerbutton:hover{
+    background-color: #10b578;
 }
 
-.header {
-	background-color: #626E60;
-	top: 0px;
-	padding: 0.8em;
-	font-size: 12pt;
+.swallow{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    justify-content: center;
+    margin: 10%;
+    margin-top: 30px;
 }
 
-.header a {
-	padding: 0.8em;
-	height: 100%;
-	color: #fff;
-	cursor: pointer;
+.nav{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: space-between;
 }
 
-.header a:hover {background-color: hsla(153, 43%, 15%, .5);}
-
-/* swallows everything */
-.swallow {
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	-ms-flex-wrap: wrap;
-	    flex-wrap: wrap;
-	margin: 2em 1em;
-	padding: 4%;
+.navbutton{
+    font-size: 40px;
+    line-height: 80%;
 }
 
-.swallow > * {
-	margin: 0% 1% 0% 1%;
+.navcounter{
+    position: relative;
+    top: 10px;
 }
 
 .schedule {
-	-webkit-box-flex: 100;
-	    -ms-flex: 100 0 40em;
-	        flex: 100 0 40em;
-}
-
-.nav {
-	position: relative;
-	margin-bottom: 1%;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-pack: center;
-	    -ms-flex-pack: center;
-	        justify-content: center;
-}
-.overlay {
-	position: absolute;
-	display: none;
-	background-color: white;
-	width: 100%;
-	height: 100%;
-	z-index: 3;
-	border: 1px solid black;
-}
-.overchild{margin: 2%;}
-
-#state{
-	position: absolute;
-	left: 0;
-	margin-top: 0.5%;
-}
-#prev, #next, #counter {
-	margin: 0 1% 0 1%;
+    -webkit-box-flex: 100;
+        -ms-flex: 100 0 40em;
+            flex: 100 0 40em;
 }
 
 table{
-	border-collapse: collapse;
-	width: 100%;
-	height: 100%;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+thead{
+    line-height: 10px;
+}
+
+th{
+    border: solid;
+    border-width: 2px;
+    border-color: #aaa;
+    background-color: #f5f5f5;
+}
+td{
+    position: relative;
+    min-width: 8em;
+    border: 2px solid;
+    border-color: #aaa;
+    height: 25em;
+    padding: 1px;
+}
+
+/* First th had no padding somehow, actually it had but... whatever */
+th:nth-child(1){
+    padding-left: 10px;
 }
 
 
-/* eatd is there for block alignment */
-td{min-width: 8em; border: 1px solid black; height: 25em;}
 .eatd{position: relative; height: 100%; cursor: pointer;}
 .block {
 	position: absolute;
@@ -124,61 +109,155 @@ td{min-width: 8em; border: 1px solid black; height: 25em;}
 	text-align: center;
 	font-weight:500;
 	cursor: pointer;
-}
-#start_time{position: absolute; top: 2%; left: 5px;}
-#end_time{position: absolute; top: 94%; left: 5px;}
-
-.form {
-	margin: 2%;
-	text-align: center;
-}
-.flashlight{margin: 0.5em;}
-#fdate {
-	font-size: 0.8em;
-	color: #777;
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 13px;
+    line-height: 14px;
 }
 
-/* row holds the options and course list */
-.row {
-	-ms-flex-preferred-size: 35%;
-	    flex-basis: 35%;
-	-webkit-box-flex: 1;
-	    -ms-flex-positive: 1;
-	        flex-grow: 1;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	    -ms-flex-direction: column;
-	        flex-direction: column;
+#start_time{
+    position: absolute;
+    top: 0%;
+    left: 5px;
 }
 
-.short {
-	width: 2.5em;
+#end_time{
+    position: absolute;
+    top: 93%;
+    left: 5px;
 }
 
-.mid{
-	width:6.0em;
+.form{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+
+    justify-content: center;
 }
 
-.options > * {
-	margin: 1em 0 0 0;
+.form .short{
+    width: 40px;
+    margin: 5px;
+    position: relative;
+    bottom: 10px;
+    height: 20px;
 }
 
-.courses {
-	border: solid 1px #af473c;
-	border-radius: 4px;
-	background-color: #eee;
-	margin-top: 0.5em;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	    -ms-flex-direction: column;
-	        flex-direction: column;
+
+.dontfilldiv{
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0;
 }
+
+.dontfillbutton{
+    text-transform: none;
+    width: 7em;
+    padding: 2px;
+    font-size: 14px;
+    position: relative;
+    bottom: 5px;
+    height: 25px;
+    line-height: 1em;
+}
+
+.flashlight{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+}
+
+.flashlight > * {
+    margin: 2px;
+    height: 3em;
+    line-height: 1em;
+}
+
+.stuff{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    margin: 20px;
+    margin-top: 45px;
+    width: 350px;
+}
+
+/* Larger than Desktop HD */
+@media (max-width: 1264px) {
+    .stuff{
+        margin-top: 20px;
+    }
+}
+
+
+.isflexaround{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: space-around;
+}
+
+.fullwidth{
+    width: 100%;
+}
+
+.stuffbutton{
+    color: #fff;
+    background-color: #5F4C62;
+}
+
+.addcoursebutton{
+    height: 29px;
+    line-height: 1em;
+}
+
+.courses{
+    border: solid 1px #5F4C62;
+    border-radius: 4px;
+    background-color: #eee;
+    margin-top: 0.5em;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    font-family: sans-serif;
+}
+
+.close {
+    float: right;
+    height: 2em;
+    width: 2em;
+    padding: 0;
+    line-height: 1em;
+}
+
+.toggle{
+    width: 6em;
+    height: 2em;
+    line-height: 1em;
+    padding: 0;
+    position: relative;
+    bottom: 5px;
+}
+
+/* COPY PASTE FROM LIBDUCK. PROPABLY RELATED WITH SOME THINGS*/
 
 .title {
 	position: relative;
@@ -186,8 +265,13 @@ td{min-width: 8em; border: 1px solid black; height: 25em;}
 	cursor: pointer;
 	padding: 0.8em;
 }
-.close { float: right; }
-.ccode { font-size: 0.8em; color: #888; position: absolute; left: 0.2em; top: 0.2em;}
+
+.ccode {
+    font-size: 0.8em;
+    color: #888;
+    position: absolute;
+    left: 0.2em;
+    top: 0.2em;}
 
 .more {
 	max-height: 0;
@@ -201,7 +285,7 @@ td{min-width: 8em; border: 1px solid black; height: 25em;}
 .more > * {
 	margin-top: 0.4em;
 }
-.boxes > * {
+.boxes > .box {
 	margin: 0em 1em 0.5em 0em;
 	display: inline-block;
 }

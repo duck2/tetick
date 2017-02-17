@@ -31,22 +31,23 @@ function tantrum(){
 	alert("throw an alarm on Facebook or something this is big");
 }
 
-/* top menu links and table overlays */
-var els = [grab("about"), grab("wrong")];
-function hideall(){
-	for(var i=0; i<els.length; i++) els[i].style.display = "none";
-}
-function show(el){
-	hideall();
-	el.style.display = "block";
-}
-grab("about-link").onclick = function(){ show(grab("about")); };
-grab("wrong-link").onclick = function(){ show(grab("wrong")); };
-grab("index").onclick = grab("about").onclick = grab("wrong").onclick = hideall;
+//TODO: REIMPLEMENT THESE
+// /* top menu links and table overlays */
+// var els = [grab("about"), grab("wrong")];
+// function hideall(){
+// 	for(var i=0; i<els.length; i++) els[i].style.display = "none";
+// }
+// function show(el){
+// 	hideall();
+// 	el.style.display = "block";
+// }
+// grab("about-link").onclick = function(){ show(grab("about")); };
+// grab("wrong-link").onclick = function(){ show(grab("wrong")); };
+// grab("index").onclick = grab("about").onclick = grab("wrong").onclick = hideall;
 
 /* color palette. course colors are selected with getcolor() from this. */
 var palette = ["#fcdfdf", "#fcebdf", "#dffce1", "#dffcfa", "#dff3fc", "#dfe6fc", "#e4dffc", "#f0dffc"];
-var oldpalette = ["#B56357", "#945D60", "#626E60","#52658F", "#67AECA", "#373F27", "#CDA34F", "#3C3C3C"]
+var newpalette = ["#B56357", "#945D60", "#626E60","#52658F", "#67AECA", "#373F27", "#CDA34F", "#3C3C3C"]
 /* shuffle palette, get next color. if we run out of colors, shuffle again.
  * http://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array */
 function shuffle(a) {
@@ -415,7 +416,8 @@ function draw(){
 	var i;
 	grab("nextb").style.display = grab("prevb").style.display = "none"; /* a table reset */
 	flashlighton = 0;
-	hideall();
+	//TODO:  this is related to about and wrong
+	// hideall();
 	rmblocks();
 	end_time = 1050;
 	for(i=0; i<dontfills.length; i++) if(dontfills[i].e > end_time) end_time = dontfills[i].e;
