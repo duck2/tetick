@@ -1,38 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
-
-  <!-- Basic Page Needs
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
   <title>Tetick</title>
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <!-- Mobile Specific Metas
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-
-  <!-- CSS
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css"> -->
   <link rel="stylesheet" href="normalize.css">
   <link rel="stylesheet" href="skeleton.css">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="awesomplete.css">
-
-  <!-- Favicon
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" href="favicon.ico" type="image/x-icon">
 
 </head>
 <body>
-
-  <!-- Primary Page Layout
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <header>
         <button id="index" class="headerbrand">Tetick</button>
         <button id="save" class="headerbutton">Save</button>
@@ -82,8 +61,7 @@
         </div>
         <div class="stuff">
             <div class="options">
-                <div>Department: <input style="position:/*
-.eatd{position: relative; height: 100%; cursor: pointer;}*/relative; left:44px;" id="dept" class="" placeholder="EE, MINE etc."></div>
+                <div>Department: <input style="position:relative; left:44px;" id="dept" class="" placeholder="EE, MINE etc."></div>
                 <div>Semester Number: <input id="semester" class="mid"></div>
                 <div>Surname: <input style="position:relative; left:65px;" id="surname" placeholder="2 letters" class="short"></div>
                 <div><button class="fullwidth stuffbutton" id="add-musts"> Add must courses </button></div>
@@ -91,7 +69,7 @@
                 <div><input type="checkbox" id="nodeptcheck"> Don't check for dept </div>
                 <div><input type="checkbox" id="allphantom"> All courses phantom </div>
                 <div class="isflexaround">
-                    Course: <input class="awesomplete" onclick="this.value='';" style="width:160px;" id="course-list" data-maxitems="5">
+                    Course: <input class="awesomplete" onclick="this.value='';" style="width:120px;" id="course-list" data-maxitems="5">
                     <button class="addcoursebutton stuffbutton" id="add"> Add </button>
                 </div><button class="fullwidth stuffbutton" id="make"> Make schedule </button></div>
             <div class="courses">
@@ -100,12 +78,8 @@
         </div>
     </div>
   </div>
-
   <script src="awesomplete.js"></script>
   <script src="data.js"></script>
   <script src="main.js"></script>
-
-<!-- End Document
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
 </html>

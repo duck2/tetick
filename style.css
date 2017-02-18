@@ -44,7 +44,7 @@ header .headerbutton:hover{
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;;
 }
 
 .navbutton{
@@ -55,6 +55,8 @@ header .headerbutton:hover{
 .navcounter{
     position: relative;
     top: 10px;
+    margin-left: 1em;
+    margin-right: 1em;
 }
 
 .schedule {
@@ -148,7 +150,6 @@ th:nth-child(1){
     height: 20px;
 }
 
-
 .dontfilldiv{
     width: 100%;
     display: -webkit-box;
@@ -165,7 +166,7 @@ th:nth-child(1){
     font-size: 14px;
     position: relative;
     bottom: 5px;
-    height: 25px;
+    height: 30px;
     line-height: 1em;
 }
 
@@ -196,13 +197,11 @@ th:nth-child(1){
     width: 350px;
 }
 
-/* Larger than Desktop HD */
 @media (max-width: 1264px) {
     .stuff{
         margin-top: 20px;
     }
 }
-
 
 .isflexaround{
     display: -webkit-box;
@@ -216,9 +215,15 @@ th:nth-child(1){
 }
 
 .stuffbutton{
-    color: #fff;
+    color: #fff !important;
     background-color: #5F4C62;
 }
+
+.stuffbutton:hover{
+    color: #333 !important;
+}
+
+.
 
 .addcoursebutton{
     height: 29px;
@@ -286,9 +291,16 @@ th:nth-child(1){
 	margin-top: 0.4em;
 }
 .boxes > .box {
-	margin: 0em 1em 0.5em 0em;
+	margin: 0em 0.5em 0.5em 0em;
 	display: inline-block;
 }
+
+.boxes{
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
 .opts {
 	width: 100%;
 	display: block;

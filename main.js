@@ -46,8 +46,8 @@ function tantrum(){
 // grab("index").onclick = grab("about").onclick = grab("wrong").onclick = hideall;
 
 /* color palette. course colors are selected with getcolor() from this. */
-var palette = ["#fcdfdf", "#fcebdf", "#dffce1", "#dffcfa", "#dff3fc", "#dfe6fc", "#e4dffc", "#f0dffc"];
-var newpalette = ["#B56357", "#945D60", "#626E60","#52658F", "#67AECA", "#373F27", "#CDA34F", "#3C3C3C"]
+var palette = ["#EFCB91","#F58289", "#65C585", "#7CB4EF", "#CE76E6", "#FFB25F", "#FFC44A", "#EE5A5A"];
+
 /* shuffle palette, get next color. if we run out of colors, shuffle again.
  * http://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array */
 function shuffle(a) {
