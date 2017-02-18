@@ -3,6 +3,7 @@ header{
     background-color: #15DC96;
     height: 45px;
     padding-left: 20px;
+    min-width: 424px;
 }
 
 header .headerbrand{
@@ -23,6 +24,7 @@ header .headerbutton{
     text-transform: none;
     font-size: .9em;
     font-weight: normal;
+    width: 1em;
 }
 
 header .headerbutton:hover{
