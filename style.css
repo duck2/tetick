@@ -182,6 +182,17 @@ th:nth-child(1){
     height: 3em;
     line-height: 1em;
 }
+#fdate{
+    text-align: center;
+    color: #aaa;
+    font-size: 15px;"
+}
+
+.currentcoursestitle{
+    text-align: center;
+    margin: 0.8em;
+    font-weight: bold;
+}
 
 .stuff{
     display: -webkit-box;
@@ -201,6 +212,16 @@ th:nth-child(1){
     .stuff{
         margin-top: 20px;
     }
+}
+
+#dept{
+    position:relative;
+    left:44px;
+}
+
+#surname{
+    position:relative;
+    left:61px;
 }
 
 .isflexaround{
