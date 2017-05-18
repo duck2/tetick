@@ -11,7 +11,7 @@ a version of it should be on [tetick.xyz](http://tetick.xyz).
 after getting the data, `make` is not needed during development. index.html in the directory will work.
 
 the code is ~600 lines of annotated, vanilla JS. highly operational core is around 100 lines.
-you can start reading from [compute()](https://github.com/libduck2/tetick/blob/master/main.js#L374).
+you can start reading from [compute()](https://github.com/duck2/tetick/blob/master/main.js#L385).
 
 ## features
 
@@ -25,4 +25,4 @@ you can start reading from [compute()](https://github.com/libduck2/tetick/blob/m
 - won't display course data
 - won't rate schedules for "lunch" or "block courses together"
 
-see [data_spec.md](https://github.com/libduck2/tetick/blob/master/data_spec.md) for interpreting scrapers' output.
+see [data_spec.md](https://github.com/duck2/tetick/blob/master/data_spec.md) for interpreting scrapers' output.
