@@ -21,10 +21,10 @@ def deptify(ccode):
 	a, b = ccode[:3], ccode[3:]
 	if b[0] == "0": b = b[1:]
 	try:
-                return prefixes[a] + b
-        except:
-                print "WARN! I don't know what department is %s" % a
-                return ""
+		return prefixes[a] + b
+	except:
+		print "WARN! I don't know what department is %s" % a
+		return ""
 
 dept_codes=[]
 dept_names={}
