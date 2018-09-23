@@ -541,7 +541,7 @@ function save(){
 	alert("your settings are saved in your browser.");
 	saved = true;
 }
-/* this does not errorcheck because there is no point providing feedback if someone went to tetick.xyz#asdasf. */
+/* this does not errorcheck because there is no point providing feedback if someone put garbage in localStorage. */
 function restorestate(st){
 	var i, j;
 	dontfills = st.d;
