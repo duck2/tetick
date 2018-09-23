@@ -580,7 +580,7 @@ grab("save").onclick = save;
 /* main() :D */
 grab("fdate").innerHTML += window.fdate;
 if(window.localStorage.getItem('state')) load();
-else if(window.location.hash) load_old();
+else if(window.location.hash) load_legacy();
 draw();
 
 /* current opaque */
