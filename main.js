@@ -565,15 +565,22 @@ function restorestate(st){
 	if(courses.length > 0) make();
 	cursched = st.n;
 }
+
 function load(){
 	var h = window.localStorage.getItem('state');
 	if(h) restorestate(JSON.parse(h));
 }
+function load_legacy(){
+	var h = window.location.hash.replace(/^#/, "");
+	if(h) restorestate(JSON.parse(atob(h)));
+}
+
 grab("save").onclick = save;
 
 /* main() :D */
 grab("fdate").innerHTML += window.fdate;
 if(window.localStorage.getItem('state')) load();
+else if(window.location.hash) load_old();
 draw();
 
 /* current opaque */
