@@ -537,13 +537,11 @@ function getstate(){
 }
 var saved = false;
 function save(){
-	window.location.hash = btoa(JSON.stringify(getstate()));
-	if(saved) return;
-	alert("your settings are saved in the link.");
-	alert("you can bookmark the link with Ctrl+D or paste it anywhere to share your schedule.");
+	window.localStorage.setItem('state', JSON.stringify(getstate()));
+	alert("your settings are saved in your browser.");
 	saved = true;
 }
-/* this does not errorcheck because there is no point providing feedback if someone went to tetick.xyz#asdasf. */
+/* this does not errorcheck because there is no point providing feedback if someone put garbage in localStorage. */
 function restorestate(st){
 	var i, j;
 	dontfills = st.d;
@@ -568,14 +566,14 @@ function restorestate(st){
 	cursched = st.n;
 }
 function load(){
-	var h = window.location.hash.replace(/^#/, "");
-	if(h) restorestate(JSON.parse(atob(h)));
+	var h = window.localStorage.getItem('state');
+	if(h) restorestate(JSON.parse(h));
 }
 grab("save").onclick = save;
 
 /* main() :D */
 grab("fdate").innerHTML += window.fdate;
-if(window.location.hash) load();
+if(window.localStorage.getItem('state')) load();
 draw();
 
 /* current opaque */

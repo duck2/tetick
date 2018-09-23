@@ -20,7 +20,11 @@ prefixes = {'219': u'GENE', '956': u'OCEA', '450': u'FLE', '451': u'TEFL', '810'
 def deptify(ccode):
 	a, b = ccode[:3], ccode[3:]
 	if b[0] == "0": b = b[1:]
-	return prefixes[a] + b
+	try:
+		return prefixes[a] + b
+	except:
+		print "WARN! I don't know what department is %s" % a
+		return ""
 
 dept_codes=[]
 dept_names={}
