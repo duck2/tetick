@@ -538,7 +538,9 @@ function getstate(){
 var saved = false;
 function save(){
 	window.localStorage.setItem('state', JSON.stringify(getstate()));
+	window.location.hash = btoa(JSON.stringify(getstate()));
 	alert("your settings are saved in your browser.");
+	alert("your settings are also saved in the link for you to copy and share your schedule.");
 	saved = true;
 }
 /* this does not errorcheck because there is no point providing feedback if someone put garbage in localStorage. */
@@ -575,12 +577,16 @@ function load_legacy(){
 	if(h) restorestate(JSON.parse(atob(h)));
 }
 
+function share(){
+	var h = btoa(JSON.stringify(getstate()));
+}
+
 grab("save").onclick = save;
 
 /* main() :D */
 grab("fdate").innerHTML += window.fdate;
-if(window.localStorage.getItem('state')) load();
-else if(window.location.hash) load_legacy();
+if(window.location.hash) load_legacy();
+else if(window.localStorage.getItem('state')) load();
 draw();
 
 /* current opaque */
