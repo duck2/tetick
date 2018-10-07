@@ -577,10 +577,6 @@ function load_legacy(){
 	if(h) restorestate(JSON.parse(atob(h)));
 }
 
-function share(){
-	var h = btoa(JSON.stringify(getstate()));
-}
-
 grab("save").onclick = save;
 
 /* main() :D */
