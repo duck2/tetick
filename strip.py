@@ -32,7 +32,7 @@ musts = {}
 for dept in musts_raw:
 	musts[dept] = {}
 	for term in musts_raw[dept]:
-		musts[dept][term] = [lookup(id) for id in musts_raw[dept][term] if lookup(id)]
+		musts[dept][term] = [lookup(id) for id in musts_raw[dept][term] if lookup(id) is not None]
 
 # it takes some work to read last modification time, convert to UTC and
 # strftime it out

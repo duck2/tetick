@@ -1,4 +1,4 @@
-# -*- coding: iso-8859-9 -*-
+# coding: utf-8
 import os, re
 import json
 import requests
@@ -12,7 +12,7 @@ sys.stdout = codecs.getwriter("UTF-8")(sys.stdout)
 
 out_file="data.json"
 
-oibs_url="https://oibs3.metu.edu.tr/View_Program_Course_Details_64/main.php"
+oibs_url="https://oibs2.metu.edu.tr/View_Program_Course_Details_64/main.php"
 
 # stuff for department-izing course codes.
 # a course ID like 5720172 does not become aee172 on its own.
@@ -39,7 +39,7 @@ headers.update({"User-Agent": "Mozilla/5.0 (Windows NT 7.0; Win64; x64; rv:3.0b2
 # RE for getting course and term codes from the main page. group(1) is code, group(2) is name.
 option_prog=re.compile("<option value=\"(.*)\">([^<]*)</option>")
 
-index_text = s.get(oibs_url, headers=headers).content.decode("iso-8859-9")
+index_text = s.get(oibs_url, headers=headers).content.decode("utf-8")
 for code, name in option_prog.findall(index_text):
 	dept_codes.append(code)
 	dept_names[code] = name
@@ -110,31 +110,31 @@ cons_prog = re.compile("<TD><FONT FACE=ARIAL>(.*)</TD>[^<>]*<TD ALIGN=\"Center\"
 out=[]
 for dept in dept_codes:
 	print "hit dept %s: %s" % (dept, dept_names[dept])
-	dept_text = get_dept(dept).content.decode("iso-8859-9")
+	dept_text = get_dept(dept).content.decode("utf-8")
 	course_codes = [code for code in ccode_prog.findall(dept_text)]
-	#print "%d offered courses" % len(course_codes)
+	print "%d offered courses" % len(course_codes)
 	for ccode in course_codes:
 		cnode={}
-		course_text = get_course(ccode).content.decode("iso-8859-9")
+		course_text = get_course(ccode).content.decode("utf-8")
 		cnode["n"] = deptify(ccode) + " - " + cname_prog.search(course_text).group(1)
 		cnode["c"] = ccode
 		cnode["s"] = {}
-		#print "hit course %s" % ccode
-		#print "course name: %s" % cname_prog.search(course_text).group(1)
+		print "hit course %s" % ccode
+		print "course name: %s" % cname_prog.search(course_text).group(1)
 		times = time_prog.findall(course_text)
 		sects = sect_prog.findall(course_text)
-		#print "%d sections" % len(sects)
+		print "%d sections" % len(sects)
 		for sect_match, time_match in zip(sects, times):
 			snode={}
 			snum = sect_match[0]
 			snode["i"] = [sect_match[1], sect_match[2]]
 			snode["t"] = eat_time(time_match)
 			sect = sect_match[0]
-			#print "section %s is given by %s, %s" % (sect, sect_match[1], sect_match[2])
-			#print "times are", eat_time(time_match)
-			sect_text = get_sect(sect).content.decode("iso-8859-9")
+			print "section %s is given by %s, %s" % (sect, sect_match[1], sect_match[2])
+			print "times are", eat_time(time_match)
+			sect_text = get_sect(sect).content.decode("utf-8")
 			cons = cons_prog.findall(sect_text)
-			#print "%d constraints" % len(cons)
+			print "%d constraints" % len(cons)
 			snode["c"] = [{"d": con[0], "s": con[1], "e": con[2]} for con in cons]
 			cnode["s"][snum] = snode
 		out.append(cnode)
