@@ -171,7 +171,7 @@ function course(idx){
 	close.onclick = function(){ rmcourse(this.parentNode.parentNode); };
 	title.innerHTML = data.n;
 	title.appendChild(close);
-	var ccode = divclass("ccode");
+	var ccode = isidiot ? divclass("ccode ccode-idiot") : divclass("ccode");
 	ccode.innerHTML = data.c;
 	title.appendChild(ccode);
 	title.onclick = function(){ tgcourse(this); };
@@ -654,6 +654,10 @@ function idiot(isLoad = false){
 	for(i = 0; i < elCourses.length; i++) {
 		elCourses[i].classList.add('courses-idiot');
 	}
+	var elCcode = document.getElementsByClassName('ccode');
+	for(i = 0; i < elCcode.length; i++) {
+  		elCcode[i].classList.add('ccode-idiot');
+	}
 	document.querySelectorAll('html')[0].classList.add('html-idiot');
 	document.querySelectorAll('body')[0].classList.add('body-idiot');
 	var elHeader = document.getElementsByClassName('header');
@@ -684,6 +688,10 @@ function clever(){
 	var elCourses = document.getElementsByClassName('courses');
 	for(i = 0; i < elCourses.length; i++) {
 		elCourses[i].classList.remove('courses-idiot');
+	}
+	var elCcode = document.getElementsByClassName('ccode');
+	for(i = 0; i < elCcode.length; i++) {
+  		elCcode[i].classList.remove('ccode-idiot');
 	}
 	document.querySelectorAll('html')[0].classList.remove('html-idiot');
 	document.querySelectorAll('body')[0].classList.remove('body-idiot');

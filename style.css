@@ -302,3 +302,7 @@ button#make {
 .header-idiot a:hover#idiot-link {
 	background-color: #222222 !important;
 }
+
+.ccode-idiot {
+	color: #fff !important;
+}
