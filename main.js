@@ -20,6 +20,10 @@ var dontfills = [], dontfill_color="#ddd";
  * "unbound": the current schedule is not possible with current options.
  * it won't be updated until a successful make() call. */
 var state = "blank";
+
+/* keeps track of if user is idioting */
+var iq = 1;
+
 /* unbind if bound, redraw */
 function unbind(){
 	if(state == "bound") state = "unbound";
@@ -124,7 +128,9 @@ var start_time = 520, end_time = 1050;
 function block(day, min1, min2, color, text){
 	var out = divclass("block");
 	out.style.backgroundColor = color;
-	out.style.height = (100 * (min2 - min1) / (end_time - start_time)).toString() + "%";
+	var tempHeight = (100 * (min2 - min1) / (end_time - start_time));
+	tempHeight = iq ? tempHeight : tempHeight - 1.5;
+	out.style.height = tempHeight.toString() + "%";
 	out.style.top = (100 * (min1 - start_time) / (end_time - start_time)).toString() + "%";
 	out.innerHTML = text + "<br>" + toclock(min1) + "-"  + toclock(min2);
 	grab(day).appendChild(out);
@@ -616,3 +622,67 @@ function prevb(){
 grab("fl").onclick = flashlight;
 grab("prevb").onclick = prevb;
 grab("nextb").onclick = nextb;
+
+/* removes all courses from the courses list. */
+function rmcourses(){
+	grabclass("courses")[0].innerHTML = '<div style="text-align: center; margin: 0.8em;"> current courses </div>';
+	courses = [];
+}
+
+function idiot(){
+	rmcourses();
+	rmblocks();
+	courses = [];
+	dontfill_color="#000";
+	palette = ["#CC0000", "#7A00CC", "#29A329", "#CCCC00",  "#00CCCC", "#00008A", "#002900", "#E62EB8", "#005C5C", "#CC3300", "#808080", "#00FF00", "#666633", "#002E2E"];
+	var style = document.createElement('style');
+	style.innerHTML =
+	'.courses { background-color: #e44424 !important; color: #fff !important; }' +
+	'.ccode { color: #fff !important;}' +
+	'.block { width: 90%; font-weight:bold; font-size: 0.875rem; margin-left: 2px; padding: 2px 5px; border-radius: 5px; color: #ffffff; } ' +
+	'html, body { font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif !important; font-weight:normal !important; font-style: normal !important;}' +
+	'.header { color: white !important; background-color:#E44424 !important;  }' +
+	'.header a { color:white !important; text-decoration:none !important; padding: 0.9em; margin-left:-5px;}' +
+	'.header a#index { background-color:transparent !important; color:white !important; text-decoration:none !important; padding: 0.9em; margin-left:-5px; }' +
+	'.header a#save, a#about-link, a#wrong-link, a#idiot-link { border-left:1px solid #000000; color:white !important; text-decoration:none !important; padding: 0.9em; margin-left:-5px;}' +
+	'.header a#save, a#about-link, a#wrong-link { background-color: #008CBA !important; color:white !important; text-decoration:none !important; padding: 0.9em; margin-left:-5px;}' +
+	'.header a#idiot-link { background-color: #333333 !important; color:white !important; text-decoration:none !important; padding: 0.9em; margin-left:-5px;} ' +
+	'.header a:hover#index { background-color: #E44424 !important; }' +
+	'.header a:hover#save, a:hover#about-link, a:hover#wrong-link { background-color: #0078a0 !important; }' +
+	'.header a:hover#idiot-link { background-color: #222222 !important;} ' +
+	'button { background-color: #008CBA !important; border-color: #007095 !important; color: #FFFFFF !important;	}' +
+	'button#make { background-color: #008CBA !important; border-color: #007095 !important; color: #FFFFFF !important; } ' ;
+	var ref = document.querySelector('script');
+	ref.parentNode.insertBefore(style, ref);
+	iq = 0;
+	document.getElementById('idiot-link').innerHTML = 'take me back!';
+}
+
+function clever(){
+	rmcourses();
+	rmblocks();
+	palette = ["#fcdfdf", "#fcebdf", "#dffce1", "#dffcfa", "#dff3fc", "#dfe6fc", "#e4dffc", "#f0dffc"];
+	dontfill_color="#ddd";
+	var style = document.createElement('style');
+	style.innerHTML =
+	'.courses { background-color: #eee !important; color: #000 !important; }' +
+	'.ccode { color: #888 !important;}' +
+	'.block { width: 100%; font-weight:normal; font-size: 10pt; margin: 0px 0px 0px 0px; padding: 0px 0px; border-radius: 0px; color: #000; } ' +
+	'html, body { font-family: sans-serif !important; }' +
+	'.header { background-color: #eee !important; color:#222 !important; }' +
+	'.header a { color:#222 !important; text-decoration: underline !important; padding: 0.8em; margin-left:0px; border-left:0px; background-color: #eee !important;}' +
+	'.header a#index  { color:#222 !important; text-decoration: underline !important; padding: 0.8em; margin-left:0px; border-left:0px; background-color: #eee !important; }' +
+	'.header a#save, a#about-link, a#wrong-link { color:#222 !important; text-decoration: underline !important; padding: 0.8em; margin-left:0px; border-left:0px; background-color: #eee !important; }' +
+	'.header a#idiot-link  { color:#222 !important; text-decoration: underline !important; padding: 0.8em; margin-left:0px; border-left:0px; background-color: #eee !important; }' +
+	'.header a:hover#index { background-color: #ddd !important; }' +
+	'.header a:hover#save, a:hover#about-link, a:hover#wrong-link { background-color: #ddd !important; }' +
+	'.header a:hover#idiot-link { background-color: #ddd !important; }' +
+	'button { background-color: #eee !important; border: 1px solid #ddd !important; color: #000000 !important;	}' +
+	'button#make { background-color: #ffd !important; color:#000000 !important; } ' ;
+	var ref = document.querySelector('script');
+	ref.parentNode.insertBefore(style, ref);
+	iq = 1;
+	document.getElementById('idiot-link').innerHTML = 'i am an idiot!';
+}
+
+grab("idiot-link").onclick = function(){ if(iq === 0) { clever();} else { idiot();} };
