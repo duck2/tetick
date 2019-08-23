@@ -195,3 +195,110 @@ button#make {
 	display: block;
 	margin-bottom: 1em;
 }
+
+.courses-idiot {
+	background-color: #e44424 !important;
+	color: #fff !important;
+}
+
+.ccode-idiot {
+	color: #fff !important;
+}
+
+.block-idiot {
+	position: absolute;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+		-ms-flex-align: center;
+			align-items: center;
+	-webkit-box-pack: center;
+		-ms-flex-pack: center;
+			justify-content: center;
+	text-align: center;
+	cursor: pointer;	
+	width: 90%;
+	font-weight: bold;
+	font-size: 0.875rem;
+	margin-left: 2px;
+	padding: 2px 5px;
+	border-radius: 5px;
+	color: #ffffff;
+}
+
+.button-idiot {
+	background-color: #008CBA !important;
+	border-color: #007095 !important;
+	color: #FFFFFF !important;
+}
+
+.html-idiot,
+.body-idiot {
+	font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif !important;
+	font-weight: normal !important;
+	font-style: normal !important;
+}
+
+.header-idiot {
+	color: white !important;
+	background-color: #E44424 !important;
+}
+
+.header-idiot  a {
+	color: white !important;
+	text-decoration: none !important;
+	padding: 0.9em;
+	margin-left: -5px;
+}
+
+.header-idiot a#index {
+	background-color: transparent !important;
+	color: white !important;
+	text-decoration: none !important;
+	padding: 0.9em;
+	margin-left: -5px;
+}
+
+.header-idiot a#save,
+.header-idiot a#about-link,
+.header-idiot a#wrong-link,
+.header-idiot a#idiot-link {
+	border-left: 1px solid #000000;
+	color: white !important;
+	text-decoration: none !important;
+	padding: 0.9em;
+	margin-left: -5px;
+}
+
+.header-idiot a#save,
+.header-idiot a#about-link,
+.header-idiot a#wrong-link {
+	background-color: #008CBA !important;
+	color: white !important;
+	text-decoration: none !important;
+	padding: 0.9em;
+	margin-left: -5px;
+}
+
+.header-idiot  a#idiot-link {
+	background-color: #333333 !important;
+	color: white !important;
+	text-decoration: none !important;
+	padding: 0.9em;
+	margin-left: -5px;
+}
+
+.header-idiot a:hover#index {
+	background-color: #E44424 !important;
+}
+
+.header-idiot a:hover#save,
+.header-idiot a:hover#about-link,
+.header-idiot a:hover#wrong-link {
+	background-color: #0078a0 !important;
+}
+
+.header-idiot a:hover#idiot-link {
+	background-color: #222222 !important;
+}
