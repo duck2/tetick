@@ -634,7 +634,8 @@ function rmcourses(){
 	courses = [];
 }
 
-function idiot(isLoad = false){
+function idiot(isLoad){
+	isLoad = typeof isLoad !== 'undefined' ? isLoad : false;
 	var tempstate = getstate();
 	if(tempstate !== {}) {
 		tempstate.i = 1;
