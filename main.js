@@ -670,10 +670,10 @@ function clever(){
 	'.block { width: 100%; font-weight:normal; font-size: 10pt; margin: 0px 0px 0px 0px; padding: 0px 0px; border-radius: 0px; color: #000; } ' +
 	'html, body { font-family: sans-serif !important; }' +
 	'.header { background-color: #eee !important; color:#222 !important; }' +
-	'.header a { color:#222 !important; text-decoration: underline !important; padding: 0.8em; margin-left:0px; border-left:0px; background-color: #eee !important;}' +
-	'.header a#index  { color:#222 !important; text-decoration: underline !important; padding: 0.8em; margin-left:0px; border-left:0px; background-color: #eee !important; }' +
-	'.header a#save, a#about-link, a#wrong-link { color:#222 !important; text-decoration: underline !important; padding: 0.8em; margin-left:0px; border-left:0px; background-color: #eee !important; }' +
-	'.header a#idiot-link  { color:#222 !important; text-decoration: underline !important; padding: 0.8em; margin-left:0px; border-left:0px; background-color: #eee !important; }' +
+	'.header a { color:#222 !important; text-decoration: underline !important; padding: 0.8em; margin-left:0px; border-left:0px; background-color: transparent !important;}' +
+	'.header a#index  { color:#222 !important; text-decoration: underline !important; padding: 0.8em; margin-left:0px; border-left:0px; background-color: transparent !important; }' +
+	'.header a#save, a#about-link, a#wrong-link { color:#222 !important; text-decoration: underline !important; padding: 0.8em; margin-left:0px; border-left:0px; background-color: transparent !important; }' +
+	'.header a#idiot-link  { color:#222 !important; text-decoration: underline !important; padding: 0.8em; margin-left:0px; border-left:0px; background-color: transparent !important; }' +
 	'.header a:hover#index { background-color: #ddd !important; }' +
 	'.header a:hover#save, a:hover#about-link, a:hover#wrong-link { background-color: #ddd !important; }' +
 	'.header a:hover#idiot-link { background-color: #ddd !important; }' +
@@ -686,3 +686,9 @@ function clever(){
 }
 
 grab("idiot-link").onclick = function(){ if(iq === 0) { clever();} else { idiot();} };
+
+function idiotCheck() {
+	if(screen.width < 768) {
+		document.getElementById('idiot-link').style.display = "none";
+	}
+}
