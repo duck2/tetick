@@ -635,6 +635,10 @@ function rmcourses(){
 }
 
 function idiot(isLoad = false){
+	var tempstate = getstate();
+	if(tempstate !== {}) {
+		tempstate.i = 1;
+	}
 	if(!isLoad) {
 		rmcourses();
 		rmblocks();
@@ -658,11 +662,19 @@ function idiot(isLoad = false){
     }
 	isidiot = 1;
 	document.getElementById('idiot-link').innerHTML = 'take me back!';
+	if(!isLoad) {
+		restorestate(tempstate);
+	}
 }
 
 function clever(){
+	var tempstate = getstate();
+	if(tempstate !== {}) {
+		tempstate.i = 0;
+	}
 	rmcourses();
 	rmblocks();
+	courses = [];
 	palette = ["#fcdfdf", "#fcebdf", "#dffce1", "#dffcfa", "#dff3fc", "#dfe6fc", "#e4dffc", "#f0dffc"];
 	dontfill_color = "#ddd";
 	var elButtons = document.querySelectorAll('button');
@@ -681,6 +693,7 @@ function clever(){
     }
 	isidiot = 0;
 	document.getElementById('idiot-link').innerHTML = 'i am an idiot!';
+	restorestate(tempstate);
 }
 
 grab("idiot-link").onclick = function(){ if(isidiot === 1) { clever();} else { idiot();} };
