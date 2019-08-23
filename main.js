@@ -511,7 +511,7 @@ grab("sncheck").onchange = grab("surname").onchange = grab("nodeptcheck").onchan
 /* the save link encodes the state in window.location.hash, the URL effectively.
  * if we find a non-empty window.location.hash, we attempt to restore a state from it.
  * the state is stored like
- * {d: dontfills, n: current schedule, c: courses, dp: dept, t: term, sc, dc, ap: surname, dept, all phantom?, sn: surname}
+ * {d: dontfills, n: current schedule, c: courses, dp: dept, t: term, sc, dc, ap: surname, dept, all phantom?, sn: surname, i: is idiot}
  * the courses are stored like
  * {n: name, s: not checked sections, u, d, p: surname check, dept check, phantom checkboxes.}
  * TODO: pls make a shorthand for hnd.getElementsByClassName it is too long TOO MANy keystrokes */
@@ -539,6 +539,7 @@ function getstate(){
 	out.sc = grab("sncheck").checked ? 1 : 0;
 	out.dc = grab("nodeptcheck").checked ? 1 : 0;
 	out.ap = grab("allphantom").checked ? 1 : 0;
+	out.i = isidiot;
 	return out;
 }
 var saved = false;
@@ -550,6 +551,10 @@ function save(){
 /* this does not errorcheck because there is no point providing feedback if someone put garbage in localStorage. */
 function restorestate(st){
 	var i, j;
+	isidiot = st.i;
+	if(isidiot)	{
+		idiot(true);
+	}
 	dontfills = st.d;
 	for(i=0; i<st.c.length; i++){
 		var c = course(lookup[st.c[i].n]),
@@ -629,10 +634,12 @@ function rmcourses(){
 	courses = [];
 }
 
-function idiot(){
-	rmcourses();
-	rmblocks();
-	courses = [];
+function idiot(isLoad = false){
+	if(!isLoad) {
+		rmcourses();
+		rmblocks();
+		courses = [];
+	}
 	dontfill_color = "#000";
 	palette = ["#CC0000", "#7A00CC", "#29A329", "#CCCC00",  "#00CCCC", "#00008A", "#002900", "#E62EB8", "#005C5C", "#CC3300", "#808080", "#00FF00", "#666633", "#002E2E"];
 	var elButtons = document.querySelectorAll('button');
