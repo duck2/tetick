@@ -20,6 +20,10 @@ var dontfills = [], dontfill_color="#ddd";
  * "unbound": the current schedule is not possible with current options.
  * it won't be updated until a successful make() call. */
 var state = "blank";
+
+/* keeps track of if user is idioting */
+var isidiot = 0;
+
 /* unbind if bound, redraw */
 function unbind(){
 	if(state == "bound") state = "unbound";
@@ -122,9 +126,11 @@ var start_time = 520, end_time = 1050;
  * assumes min2 > min1, if not, weird results can emerge.
  * returns the dom element it makes. */
 function block(day, min1, min2, color, text){
-	var out = divclass("block");
+	var out = isidiot ? divclass("block idiot") : divclass("block");
 	out.style.backgroundColor = color;
-	out.style.height = (100 * (min2 - min1) / (end_time - start_time)).toString() + "%";
+	var tempHeight = (100 * (min2 - min1) / (end_time - start_time));
+	tempHeight = isidiot ? tempHeight - 1.5 : tempHeight;
+	out.style.height = tempHeight.toString() + "%";
 	out.style.top = (100 * (min1 - start_time) / (end_time - start_time)).toString() + "%";
 	out.innerHTML = text + "<br>" + toclock(min1) + "-"  + toclock(min2);
 	grab(day).appendChild(out);
@@ -165,7 +171,7 @@ function course(idx){
 	close.onclick = function(){ rmcourse(this.parentNode.parentNode); };
 	title.innerHTML = data.n;
 	title.appendChild(close);
-	var ccode = divclass("ccode");
+	var ccode = isidiot ? divclass("ccode idiot") : divclass("ccode");
 	ccode.innerHTML = data.c;
 	title.appendChild(ccode);
 	title.onclick = function(){ tgcourse(this); };
@@ -505,7 +511,7 @@ grab("sncheck").onchange = grab("surname").onchange = grab("nodeptcheck").onchan
 /* the save link encodes the state in window.location.hash, the URL effectively.
  * if we find a non-empty window.location.hash, we attempt to restore a state from it.
  * the state is stored like
- * {d: dontfills, n: current schedule, c: courses, dp: dept, t: term, sc, dc, ap: surname, dept, all phantom?, sn: surname}
+ * {d: dontfills, n: current schedule, c: courses, dp: dept, t: term, sc, dc, ap: surname, dept, all phantom?, sn: surname, i: is idiot}
  * the courses are stored like
  * {n: name, s: not checked sections, u, d, p: surname check, dept check, phantom checkboxes.}
  * TODO: pls make a shorthand for hnd.getElementsByClassName it is too long TOO MANy keystrokes */
@@ -533,6 +539,7 @@ function getstate(){
 	out.sc = grab("sncheck").checked ? 1 : 0;
 	out.dc = grab("nodeptcheck").checked ? 1 : 0;
 	out.ap = grab("allphantom").checked ? 1 : 0;
+	out.i = isidiot;
 	return out;
 }
 var saved = false;
@@ -544,6 +551,10 @@ function save(){
 /* this does not errorcheck because there is no point providing feedback if someone put garbage in localStorage. */
 function restorestate(st){
 	var i, j;
+	isidiot = st.i;
+	if(isidiot)	{
+		idiot(true);
+	}
 	dontfills = st.d;
 	for(i=0; i<st.c.length; i++){
 		var c = course(lookup[st.c[i].n]),
@@ -616,3 +627,54 @@ function prevb(){
 grab("fl").onclick = flashlight;
 grab("prevb").onclick = prevb;
 grab("nextb").onclick = nextb;
+
+/* removes all courses from the courses list. */
+function rmcourses(){
+	grabclass("courses")[0].innerHTML = '<div style="text-align: center; margin: 0.8em;"> current courses </div>';
+	courses = [];
+}
+
+function idiot(isLoad){
+	isLoad = typeof isLoad !== 'undefined' ? isLoad : false;
+	var tempstate = getstate();
+	if(tempstate !== {}) {
+		tempstate.i = 1;
+	}
+	if(!isLoad) {
+		rmcourses();
+		rmblocks();
+		courses = [];
+	}
+	dontfill_color = "#000";
+	palette = ["#CC0000", "#7A00CC", "#29A329", "#CCCC00",  "#00CCCC", "#00008A", "#002900", "#E62EB8", "#005C5C", "#CC3300", "#808080", "#00FF00", "#666633", "#002E2E"];
+	var all = document.querySelectorAll("*");
+	for(i=0; i<all.length; i++) {
+		all[i].classList.add("idiot");
+	}
+	isidiot = 1;
+	document.getElementById('idiot-link').innerHTML = 'take me back!';
+	if(!isLoad) {
+		restorestate(tempstate);
+	}
+}
+
+function clever(){
+	var tempstate = getstate();
+	if(tempstate !== {}) {
+		tempstate.i = 0;
+	}
+	rmcourses();
+	rmblocks();
+	courses = [];
+	palette = ["#fcdfdf", "#fcebdf", "#dffce1", "#dffcfa", "#dff3fc", "#dfe6fc", "#e4dffc", "#f0dffc"];
+	dontfill_color = "#ddd";
+	var all = document.querySelectorAll("*");
+	for(i=0; i<all.length; i++) {
+		all[i].classList.remove("idiot");
+	}
+	isidiot = 0;
+	document.getElementById('idiot-link').innerHTML = 'ugly!';
+	restorestate(tempstate);
+}
+
+grab("idiot-link").onclick = function(){ if(isidiot === 1) { clever();} else { idiot();} };
