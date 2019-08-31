@@ -673,14 +673,8 @@ function clever(){
 		all[i].classList.remove("idiot");
 	}
 	isidiot = 0;
-	document.getElementById('idiot-link').innerHTML = 'i am an idiot!';
+	document.getElementById('idiot-link').innerHTML = 'ugly!';
 	restorestate(tempstate);
 }
 
 grab("idiot-link").onclick = function(){ if(isidiot === 1) { clever();} else { idiot();} };
-
-function idiotCheck() {
-	if(screen.width < 768) {
-		document.getElementById('idiot-link').style.display = "none";
-	}
-}

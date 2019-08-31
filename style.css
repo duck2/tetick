@@ -290,3 +290,9 @@ body.idiot {
 .header.idiot a:hover#idiot-link {
 	background-color: #222222 !important;
 }
+
+@media(max-width: 768px){
+    #idiot-link {
+		display: none;
+	}
+}
