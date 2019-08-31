@@ -126,7 +126,7 @@ var start_time = 520, end_time = 1050;
  * assumes min2 > min1, if not, weird results can emerge.
  * returns the dom element it makes. */
 function block(day, min1, min2, color, text){
-	var out = isidiot ? divclass("block-idiot") : divclass("block");
+	var out = isidiot ? divclass("block idiot") : divclass("block");
 	out.style.backgroundColor = color;
 	var tempHeight = (100 * (min2 - min1) / (end_time - start_time));
 	tempHeight = isidiot ? tempHeight - 1.5 : tempHeight;
@@ -171,7 +171,7 @@ function course(idx){
 	close.onclick = function(){ rmcourse(this.parentNode.parentNode); };
 	title.innerHTML = data.n;
 	title.appendChild(close);
-	var ccode = isidiot ? divclass("ccode ccode-idiot") : divclass("ccode");
+	var ccode = isidiot ? divclass("ccode idiot") : divclass("ccode");
 	ccode.innerHTML = data.c;
 	title.appendChild(ccode);
 	title.onclick = function(){ tgcourse(this); };
@@ -647,24 +647,10 @@ function idiot(isLoad){
 	}
 	dontfill_color = "#000";
 	palette = ["#CC0000", "#7A00CC", "#29A329", "#CCCC00",  "#00CCCC", "#00008A", "#002900", "#E62EB8", "#005C5C", "#CC3300", "#808080", "#00FF00", "#666633", "#002E2E"];
-	var elButtons = document.querySelectorAll('button');
-	for(i = 0; i < elButtons.length; i++) {
-  		elButtons[i].classList.add('button-idiot');
+	var all = document.querySelectorAll("*");
+	for(i=0; i<all.length; i++) {
+		all[i].classList.add("idiot");
 	}
-	var elCourses = document.getElementsByClassName('courses');
-	for(i = 0; i < elCourses.length; i++) {
-		elCourses[i].classList.add('courses-idiot');
-	}
-	var elCcode = document.getElementsByClassName('ccode');
-	for(i = 0; i < elCcode.length; i++) {
-  		elCcode[i].classList.add('ccode-idiot');
-	}
-	document.querySelectorAll('html')[0].classList.add('html-idiot');
-	document.querySelectorAll('body')[0].classList.add('body-idiot');
-	var elHeader = document.getElementsByClassName('header');
-    for(i = 0; i < elHeader.length; i++) {
-        elHeader[i].classList.add('header-idiot');
-    }
 	isidiot = 1;
 	document.getElementById('idiot-link').innerHTML = 'take me back!';
 	if(!isLoad) {
@@ -682,24 +668,10 @@ function clever(){
 	courses = [];
 	palette = ["#fcdfdf", "#fcebdf", "#dffce1", "#dffcfa", "#dff3fc", "#dfe6fc", "#e4dffc", "#f0dffc"];
 	dontfill_color = "#ddd";
-	var elButtons = document.querySelectorAll('button');
-	for(i = 0; i < elButtons.length; i++) {
-  		elButtons[i].classList.remove('button-idiot');
+	var all = document.querySelectorAll("*");
+	for(i=0; i<all.length; i++) {
+		all[i].classList.remove("idiot");
 	}
-	var elCourses = document.getElementsByClassName('courses');
-	for(i = 0; i < elCourses.length; i++) {
-		elCourses[i].classList.remove('courses-idiot');
-	}
-	var elCcode = document.getElementsByClassName('ccode');
-	for(i = 0; i < elCcode.length; i++) {
-  		elCcode[i].classList.remove('ccode-idiot');
-	}
-	document.querySelectorAll('html')[0].classList.remove('html-idiot');
-	document.querySelectorAll('body')[0].classList.remove('body-idiot');
-	var elHeader = document.getElementsByClassName('header');
-    for(i = 0; i < elHeader.length; i++) {
-        elHeader[i].classList.remove('header-idiot');
-    }
 	isidiot = 0;
 	document.getElementById('idiot-link').innerHTML = 'i am an idiot!';
 	restorestate(tempstate);
