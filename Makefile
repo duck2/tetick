@@ -11,7 +11,7 @@ $(OUTDIR)/index.html: main.min.js style.css awesomplete.js awesomplete.css
 	rm index.html.tmp
 
 main.min.js: awesomplete.js data.js main.js
-	uglifyjs awesomplete.js data.js main.js --compress --mangle >  main.min.js
+	uglifyjs awesomplete.js ics.js data.js main.js --compress --mangle >  main.min.js
 
 data.js: data.json musts.json strip.py
 	python strip.py
