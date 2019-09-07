@@ -164,13 +164,7 @@ function mkopts(){
 }
 /* make a course, append to div.courses and return it. color is from getcolor().
  * unbinds schedule. */
-function course(idx, specificSection, specificSectionNum){
-	if (specificSection === undefined) {
-		specificSection = false;
-	}
-	if (specificSectionNum === undefined) {
-		specificSectionNum = 1;
-	}
+function course(idx){
 	var outel = divclass("course"), title = divclass("title"), more = divclass("more");
 	var out = {}, color = getcolor(), data = window.cdata[idx],
 	close = button("close", "x");
@@ -185,12 +179,7 @@ function course(idx, specificSection, specificSectionNum){
 	var i, box, boxdiv, boxes = divclass("boxes"), snums = Object.keys(data.s);
 	for(i=0; i<snums.length; i++){
 		box = cbox();
-		if ( (i + 1) == specificSectionNum ){
-			box.setAttribute("checked", "true");
-			console.log(i+1);
-		} else if (!specificSection) {
-			box.setAttribute("checked", "true");
-		}
+		box.setAttribute("checked", true);
 		boxdiv = divclass("box");
 		boxdiv.appendChild(box);
 		boxdiv.innerHTML += snums[i];
@@ -539,13 +528,6 @@ for(i=0; i<window.cdata.length; i++){
 }
 new Awesomplete(grab("course-list"), {list: j});
 
-/* the awesomplete list for the teachers */
-var i, j = [], lookup_teachers = {};
-for (i=0; i<Object.keys(window.teachers).length; i++){
-	j.push(Object.keys(window.teachers)[i]);
-}
-new Awesomplete(grab("teacher-list"), {list: j});
-
 grab("add-musts").onclick = function(){
 	var i, musts = window.musts[grab("dept").value.toUpperCase()][grab("semester").value];
 	for(i=0; i<musts.length; i++) course(musts[i]);
@@ -554,17 +536,6 @@ grab("add-musts").onclick = function(){
 
 grab("add").onclick = function(){
 	course(lookup[grab("course-list").value]);
-};
-
-grab("hocala").onclick = function(){
-	var sections = window.teachers[grab("teacher-list").value];
-	rmcourses();
-	sections.forEach(function(section){
-		course(lookup[section[0]], true, parseInt(section[1]));
-	});
-	grab("nodeptcheck").checked = true;
-	grab("allphantom").checked = true
-	make();
 };
 
 /* remaining bound with those is hard */

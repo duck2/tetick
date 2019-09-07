@@ -7,7 +7,6 @@ import json
 cdata_raw = json.load(open("data.json", "r"))
 musts_raw = json.load(open("musts.json", "r"))
 
-
 # convert times in a "t": node
 def tomins(clock):
 	split = clock.split(":")
@@ -23,15 +22,6 @@ for cnode in cdata_raw:
 	outc = {"c": cnode["c"], "n": cnode["n"]}
 	outc["s"] = {snum: {"c": filterc(snode["c"]), "t": convert(snode["t"])} for snum, snode in cnode["s"].iteritems() if len(snode["t"]) > 0}
 	if len(outc["s"]) > 0: out.append(outc)
-
-
-teachers = {}
-for cnode in cdata_raw: # we can also iterate over out
-	for snum, snode in cnode["s"].items():
-		try:
-			teachers[snode["i"][0]].append([cnode["n"], snum])
-		except KeyError:
-			teachers[snode["i"][0]] = [[cnode["n"], snum]]
 
 # look up a course ID in courses
 def lookup(id):
@@ -58,8 +48,7 @@ a = """
 window.fdate = \"%s\";
 window.cdata = %s;
 window.musts = %s;
-window.teachers = %s;
-""" % (fdate, json.dumps(out), json.dumps(musts), json.dumps(teachers))
+""" % (fdate, json.dumps(out), json.dumps(musts))
 
 with open("data.js", "w") as f:
 	f.write(a)
