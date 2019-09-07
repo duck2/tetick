@@ -478,39 +478,6 @@ function make(){
 }
 grab("make").onclick = make;
 
-/* export current schedule to a calendar file */
-function exp2cal(){
-	var events = schedules[cursched];
-	console.log(events);
-	if (events === undefined){
-		return 0;
-	}
-	else {
-		var cal = ics();
-		var rrule = {
-			freq:"WEEKLY",
-			count:14
-		};
-		events.forEach(function(event){
-			if (event.t !== undefined) {
-				var september_day = 23 + event.d;
-				var start_time = Math.floor(event.s/60) + ':' + (event.s % 60);
-				var end_time = Math.floor(event.e/60) + ':' + (event.e % 60);
-				var begin = '9/' + september_day + '/2019 ' + start_time;
-				var end = '9/' + september_day + '/2019 ' + end_time;
-				var place = event.p;
-				var index_open_parenthesis = event.t.indexOf('(');
-				var index_close_parenthesis = event.t.indexOf(')');
-				var subject = event.t.slice(0, index_open_parenthesis);
-				var description = 'Section ' + event.t.slice(index_open_parenthesis + 1, index_close_parenthesis);
-				cal.addEvent(subject, description, place, begin, end, rrule);
-			}
-		});
-		cal.download("tetick_schedule");
-	}
-}
-grab("export").onclick = exp2cal;
-
 /* navigate schedules. arrow keys also work. */
 function prev(){
 	if(state == "blank") return;
