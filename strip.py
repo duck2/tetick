@@ -15,9 +15,13 @@ def convert(tarr):
 	return [{"d": tnode["d"], "p": tnode["p"], "s": tomins(tnode["s"]), "e": tomins(tnode["e"])} for tnode in tarr]
 
 out = []
-# criteria with dept ALL and surnames AA-ZZ have no effect, no need to include them.
+# ALL AA-ZZ constraint is effectively no constraint. so remove all constraints if it's present.
 def filterc(cs):
-	return [c for c in cs if not (c["s"] == "AA" and c["e"] == "ZZ" and c["d"] == "ALL")]
+	for c in cs:
+		if c["s"] == "AA" and c["e"] == "ZZ" and c["d"] == "ALL":
+			return []
+	return cs
+
 for cnode in cdata_raw:
 	outc = {"c": cnode["c"], "n": cnode["n"]}
 	outc["s"] = {snum: {"c": filterc(snode["c"]), "t": convert(snode["t"])} for snum, snode in cnode["s"].iteritems() if len(snode["t"]) > 0}
