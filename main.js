@@ -383,6 +383,32 @@ function sortsch(sch){
 	sch.sort(function(a, b){if(b.d < a.d || (b.d == a.d && b.s < a.s)) return 1; return -1;});
 	return sch;
 }
+
+function calc_sleep_score(sch){
+	var sleep_score = 0;
+	for(var i=0; i < sch.length; i++){
+		if(sch[i].p != undefined){
+			sleep_score += sch[i].s;
+		}
+	}
+	return sleep_score;
+}
+
+function sort_for_sleep(){
+	for(var i=0; i<Math.min(10,schedules.length); i++){
+		var curMax = {"val":calc_sleep_score(schedules[i]), "index":i};
+
+		for(var j=i+1; j<schedules.length; j++){
+			if(calc_sleep_score(schedules[j]) > curMax.val){
+				curMax.val = calc_sleep_score(schedules[j]);
+				curMax.index = j;
+			}
+		}
+		console.log(calc_sleep_score(schedules[i]));
+		[schedules[i],schedules[curMax.index]] = [schedules[curMax.index],schedules[i]];
+	}
+}
+
 /* compute possible schedules. returns true if all went fine, false if no possible schedules.
  * since this will be exponential with course count anyway, we do some kind of branch elimination.
  * instead of getting all permutations and checking them if they are viable, we branch course by course.
@@ -390,6 +416,7 @@ function sortsch(sch){
  * as easy as checking if any period's start time is before the end time of the previous period. */
 function compute(){
 	var i, j, k, out = [sortsch(dontfills)], out_nxt, sects = digest(get_sects());
+	
 	for(i=0; i<sects.length; i++){
 		out_nxt = [];
 		if(hasphantom(sects[i])) break;
@@ -407,7 +434,13 @@ function compute(){
 		out = out_nxt.slice();
 	}
 	if(out.length === 0 || out[0].length === 0) return false;
+
 	schedules = out;
+
+	if(grab("sleep").checked){
+		sort_for_sleep();
+	}
+
 	return true;
 }
 
@@ -426,6 +459,9 @@ function draw(){
 	for(i=0; i<dontfills.length; i++) if(dontfills[i].e > end_time) end_time = dontfills[i].e;
 	if(cursched >= schedules.length) cursched = 0;
 	var sch = schedules[cursched];
+	
+	//console.log(JSON.stringify(sch))
+
 	if(sch && sch.length) for(i=0; i<sch.length; i++) if(sch[i].e > end_time) end_time = sch[i].e;
 	for(i=0; i<dontfills.length; i++){
 		dontfills[i].block = block(dontfills[i].d, dontfills[i].s, dontfills[i].e, dontfill_color, "Don't fill.");
@@ -506,7 +542,7 @@ grab("add").onclick = function(){
 };
 
 /* remaining bound with those is hard */
-grab("sncheck").onchange = grab("surname").onchange = grab("nodeptcheck").onchange = grab("allphantom").onchange = unbind;
+grab("sncheck").onchange = grab("surname").onchange = grab("nodeptcheck").onchange = grab("allphantom").onchange = grab("sleep").onchange = unbind;
 
 /* the save link encodes the state in window.location.hash, the URL effectively.
  * if we find a non-empty window.location.hash, we attempt to restore a state from it.
@@ -539,6 +575,7 @@ function getstate(){
 	out.sc = grab("sncheck").checked ? 1 : 0;
 	out.dc = grab("nodeptcheck").checked ? 1 : 0;
 	out.ap = grab("allphantom").checked ? 1 : 0;
+	out.slp = grab("sleep").checked ? 1 : 0;
 	out.i = isidiot;
 	return out;
 }
@@ -572,6 +609,7 @@ function restorestate(st){
 	grab("sncheck").checked = st.sc ? true : false;
 	grab("nodeptcheck").checked = st.dc ? true : false;
 	grab("allphantom").checked = st.ap ? true : false;
+	grab("sleep").checked = st.slp ? true : false;
 
 	if(courses.length > 0) make();
 	cursched = st.n;
