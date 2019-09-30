@@ -404,7 +404,6 @@ function sort_for_sleep(){
 				curMax.index = j;
 			}
 		}
-		console.log(calc_sleep_score(schedules[i]));
 		[schedules[i],schedules[curMax.index]] = [schedules[curMax.index],schedules[i]];
 	}
 }
@@ -460,8 +459,6 @@ function draw(){
 	if(cursched >= schedules.length) cursched = 0;
 	var sch = schedules[cursched];
 	
-	//console.log(JSON.stringify(sch))
-
 	if(sch && sch.length) for(i=0; i<sch.length; i++) if(sch[i].e > end_time) end_time = sch[i].e;
 	for(i=0; i<dontfills.length; i++){
 		dontfills[i].block = block(dontfills[i].d, dontfills[i].s, dontfills[i].e, dontfill_color, "Don't fill.");
