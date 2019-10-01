@@ -463,7 +463,7 @@ function draw(){
 	
 	if(sch && sch.length) for(i=0; i<sch.length; i++) if(sch[i].e > end_time) end_time = sch[i].e;
 	for(i=0; i<dontfills.length; i++){
-		dontfills[i].block = block(dontfills[i].d, dontfills[i].s, dontfills[i].e, dontfill_color, "<input type='text' value=\"Don't fill.\">");
+		dontfills[i].block = block(dontfills[i].d, dontfills[i].s, dontfills[i].e, dontfill_color, "Don't fill.");
 		dontfills[i].block.style.zIndex = 2;
 		dontfills[i].block.onclick = function(ev){ rmdontfill(ev, this); };
 	}
