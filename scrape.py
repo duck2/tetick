@@ -39,7 +39,7 @@ headers.update({"User-Agent": "Mozilla/5.0 (Windows NT 7.0; Win64; x64; rv:3.0b2
 # RE for getting course and term codes from the main page. group(1) is code, group(2) is name.
 option_prog=re.compile("<option value=\"(.*)\">([^<]*)</option>")
 
-index_text = s.get(oibs_url, headers=headers).content.decode("utf-8")
+index_text = s.get(oibs_url, headers=headers).content.decode("utf-8", errors="ignore")
 for code, name in option_prog.findall(index_text):
 	dept_codes.append(code)
 	dept_names[code] = name
@@ -110,12 +110,12 @@ cons_prog = re.compile("<TD><FONT FACE=ARIAL>(.*)</TD>[^<>]*<TD ALIGN=\"Center\"
 out=[]
 for dept in dept_codes:
 	print "hit dept %s: %s" % (dept, dept_names[dept])
-	dept_text = get_dept(dept).content.decode("utf-8")
+	dept_text = get_dept(dept).content.decode("utf-8", errors="ignore")
 	course_codes = [code for code in ccode_prog.findall(dept_text)]
 	print "%d offered courses" % len(course_codes)
 	for ccode in course_codes:
 		cnode={}
-		course_text = get_course(ccode).content.decode("utf-8")
+		course_text = get_course(ccode).content.decode("utf-8", errors="ignore")
 		cnode["n"] = deptify(ccode) + " - " + cname_prog.search(course_text).group(1)
 		cnode["c"] = ccode
 		cnode["s"] = {}
@@ -132,7 +132,7 @@ for dept in dept_codes:
 			sect = sect_match[0]
 			print "section %s is given by %s, %s" % (sect, sect_match[1], sect_match[2])
 			print "times are", eat_time(time_match)
-			sect_text = get_sect(sect).content.decode("utf-8")
+			sect_text = get_sect(sect).content.decode("utf-8", errors="ignore")
 			cons = cons_prog.findall(sect_text)
 			print "%d constraints" % len(cons)
 			snode["c"] = [{"d": con[0], "s": con[1], "e": con[2]} for con in cons]
