@@ -10,7 +10,7 @@ var blocks = [];
 var courses = [];
 
 /* keeps track of "don't fill"s.
- * dontfills[i].d is day. dontfills[i].s is start. dontfills[i].e is end.
+ * dontfills[i].d is day. dontfills[i].s is start. dontfills[i].e is end. dontfills[i].n is name.
  * dontfills[i].block is the corresponding "Don't fill." block on the schedule. */
 var dontfills = [], dontfill_color="#ddd";
 
@@ -239,8 +239,8 @@ function df_conflicts(df){
  * the resulting node won't have any corresponding block until draw() is called.
  * can "unbind" the state if the resulting don't fill leaves no possible schedules.
  * TODO: checks for this so it does not set outside [start_time, end_time] */
-function dontfill(d, s, e){
-	var out = {"d": d, "s": s, "e": e, "block": {}};
+function dontfill(d, s, e, n){
+	var out = {"n": n, "d": d, "s": s, "e": e, "block": {}};
 	if(df_conflicts(out)) return;
 	dontfills.push(out);
 	switch(state){
@@ -274,14 +274,14 @@ function eatdclick(event, el){
 	var rect = el.getBoundingClientRect(), y = event.clientY - rect.top,
 	mins = Math.round(start_time + (end_time - start_time) * (y) / rect.height),
 	start = start_time + Math.floor((mins - start_time) / 60) * 60;
-	dontfill(el.id, start, start+50);
+	dontfill(el.id, start, start+50, "Don't fill");
 }
 var eatds = grabclass("eatd");
 for(i=0; i<eatds.length; i++) eatds[i].onclick = function(ev){ eatdclick(ev, this); };
 
 /* we also accept don't fills from the form. */
 function df_form(){
-	dontfill(grab("d").value-1, tomins(grab("s").value), tomins(grab("e").value));
+	dontfill(grab("d").value-1, tomins(grab("s").value), tomins(grab("e").value), grab("n").value);
 }
 grab("dontfill").onclick = df_form;
 
@@ -428,7 +428,7 @@ function draw(){
 	var sch = schedules[cursched];
 	if(sch && sch.length) for(i=0; i<sch.length; i++) if(sch[i].e > end_time) end_time = sch[i].e;
 	for(i=0; i<dontfills.length; i++){
-		dontfills[i].block = block(dontfills[i].d, dontfills[i].s, dontfills[i].e, dontfill_color, "Don't fill.");
+		dontfills[i].block = block(dontfills[i].d, dontfills[i].s, dontfills[i].e, dontfill_color, dontfills[i].n);
 		dontfills[i].block.style.zIndex = 2;
 		dontfills[i].block.onclick = function(ev){ rmdontfill(ev, this); };
 	}
