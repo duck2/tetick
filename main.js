@@ -10,7 +10,7 @@ var blocks = [];
 var courses = [];
 
 /* keeps track of "don't fill"s.
- * dontfills[i].d is day. dontfills[i].s is start. dontfills[i].e is end. dontfills[i].n is name.
+ * dontfills[i].d is day. dontfills[i].s is start. dontfills[i].e is end. dontfills[i].n is name. dontfills[i].c is color.
  * dontfills[i].block is the corresponding "Don't fill." block on the schedule. */
 var dontfills = [], dontfill_color="#ddd";
 
@@ -235,12 +235,17 @@ function df_conflicts(df){
 	}
 	return false;
 }
-/* create a don't fill, on day d, from s to e.
+/* create a don't fill named n, on day d, from s to e.
  * the resulting node won't have any corresponding block until draw() is called.
  * can "unbind" the state if the resulting don't fill leaves no possible schedules.
  * TODO: checks for this so it does not set outside [start_time, end_time] */
 function dontfill(d, s, e, n){
-	var out = {"n": n, "d": d, "s": s, "e": e, "block": {}};
+	var color;
+	(n === "Don't fill") ? (color = dontfill_color) : (color = getcolor());
+	for (var i=0;i<dontfills.length;i++){
+		if (dontfills[i].c && dontfills[i].n === n) color = dontfills[i].c;
+	}
+	var out = {"n": n, "d": d, "s": s, "e": e, "c":color, "block": {}};
 	if(df_conflicts(out)) return;
 	dontfills.push(out);
 	switch(state){
@@ -428,7 +433,10 @@ function draw(){
 	var sch = schedules[cursched];
 	if(sch && sch.length) for(i=0; i<sch.length; i++) if(sch[i].e > end_time) end_time = sch[i].e;
 	for(i=0; i<dontfills.length; i++){
-		dontfills[i].block = block(dontfills[i].d, dontfills[i].s, dontfills[i].e, dontfill_color, dontfills[i].n);
+		if (!dontfills[i].c)
+			dontfills[i].block = block(dontfills[i].d, dontfills[i].s, dontfills[i].e, dontfill_color, dontfills[i].n);
+		else
+			dontfills[i].block = block(dontfills[i].d, dontfills[i].s, dontfills[i].e, dontfills[i].c, dontfills[i].n);
 		dontfills[i].block.style.zIndex = 2;
 		dontfills[i].block.onclick = function(ev){ rmdontfill(ev, this); };
 	}
