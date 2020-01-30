@@ -196,7 +196,6 @@ function course(idx){
 	out.handle = outel;
 	out.data = window.cdata[idx];
 	courses.push(out);
-	unbind();
 	return out;
 }
 
@@ -222,7 +221,6 @@ function getcourse(el){
 function rmcourse(el){
 	courses.splice(courses.indexOf(getcourse(el)), 1);
 	el.remove();
-	unbind();
 }
 
 /* does this new don't fill conflict with any in the array? */
@@ -286,7 +284,15 @@ for(i=0; i<eatds.length; i++) eatds[i].onclick = function(ev){ eatdclick(ev, thi
 
 /* we also accept don't fills from the form. */
 function df_form(){
-	dontfill(grab("d").value-1, tomins(grab("s").value), tomins(grab("e").value), grab("n").value);
+	var d = parseInt(grab("d").value);
+	if(isNaN(d) || d < 1 || d > 5)
+		return;
+	var s = tomins(grab("s").value);
+	var e = tomins(grab("e").value);
+	if(isNaN(s) || isNaN(e))
+		return;
+	var n = grab("n").value || "Don't fill.";
+	dontfill(d-1, s, e, n);
 }
 grab("dontfill").onclick = df_form;
 
