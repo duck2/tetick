@@ -182,13 +182,24 @@ button#make {
 	-webkit-transition: 0.4s ease-in-out;
 	transition: 0.4s ease-in-out;
 }
-.show { max-height: 30em; }
+.show {
+	max-height: 540px;
+}
 .more > * {
 	margin-top: 0.4em;
 }
 .boxes > * {
 	margin: 0em 1em 0.5em 0em;
 	display: inline-block;
+}
+.details {
+	border: 1px solid black;
+	padding: 4px;
+	white-space: pre;
+	font: 9pt monospace;
+	max-height: 160px;
+	overflow-y: scroll;
+	display: none;
 }
 .opts {
 	width: 100%;
