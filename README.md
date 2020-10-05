@@ -18,11 +18,10 @@ you can start reading from [compute()](https://github.com/duck2/tetick/blob/mast
 - uses time intervals instead of table cells
 - consistent collision checking for user-defined time blocks
 - reasonably fast until ~1M combinations
-- small- ~70KB gzipped *with* all course data
+- small- <100KB gzipped with all course data
 
 ## non-features
 
-- won't display course data
 - won't rate schedules for "lunch" or "block courses together"
 
 see [data_spec.md](https://github.com/duck2/tetick/blob/master/data_spec.md) for interpreting scrapers' output.
