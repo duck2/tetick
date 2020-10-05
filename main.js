@@ -178,11 +178,16 @@ function course(idx){
 	outel.appendChild(title);
 	var i, box, boxdiv, boxes = divclass("boxes"), snums = Object.keys(data.s);
 	for(i=0; i<snums.length; i++){
+		var inamelist = data.s[snums[i]]["i"].map(function (iindex) {
+			return window.idata[iindex];
+		}).join(', ');
+
 		box = cbox();
 		box.setAttribute("checked", true);
 		boxdiv = divclass("box");
 		boxdiv.appendChild(box);
 		boxdiv.innerHTML += snums[i];
+		boxdiv.title = inamelist;
 		boxes.appendChild(boxdiv);
 	}
 	var toggle = button("toggle", "toggle");
