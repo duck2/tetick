@@ -145,7 +145,7 @@ function rmblocks(){
 	blocks = [];
 }
 
-/* make an options div, return it. this is just DOM crud and clutters course() so we move out. */
+/* make an options div, return it. this is just DOM crud and clutters course() so we move it out. */
 function mkopts(){
 	var opts = divclass("opts"), opt = divclass("opt"), sname = cbox("sname"),
 	nodept = cbox("nodept"), phantom=cbox("phantom");
@@ -162,6 +162,7 @@ function mkopts(){
 	opts.appendChild(opt);
 	return opts;
 }
+
 /* make a course, append to div.courses and return it. color is from getcolor().
  * unbinds schedule. */
 function course(idx){
@@ -177,7 +178,16 @@ function course(idx){
 	title.onclick = function(){ tgcourse(this); };
 	outel.appendChild(title);
 	var i, box, boxdiv, boxes = divclass("boxes"), snums = Object.keys(data.s);
+	var details = "";
 	for(i=0; i<snums.length; i++){
+		var section_data = data.s[snums[i]];
+		details += "Section " + snums[i] + ": ";
+		details += section_data["i"].map(function(iindex) {
+			return window.idata[iindex];
+		}).join(', ') + "\n";
+		details += section_data["c"].map(function(c){
+			return "  " + c.d + " " + c.s + "-" + c.e;
+		}).join("\n") + "\n"
 		box = cbox();
 		box.setAttribute("checked", true);
 		boxdiv = divclass("box");
@@ -187,8 +197,14 @@ function course(idx){
 	}
 	var toggle = button("toggle", "toggle");
 	toggle.onclick = function(){ tgboxes(this.parentNode); };
+	var details_toggle = button("details_toggle", "...");
+	details_toggle.onclick = function(){ tgdetails(this); };
+	var details_div = divclass("details");
+	details_div.innerHTML = details;
 	boxes.appendChild(toggle);
+	boxes.appendChild(details_toggle);
 	more.appendChild(boxes);
+	more.appendChild(details_div);
 	more.appendChild(mkopts());
 	outel.appendChild(more);
 	grabclass("courses")[0].appendChild(outel);
@@ -207,6 +223,14 @@ function tgcourse(el){
 function tgboxes(el){
 	var i, boxes = el.querySelectorAll("input[type=checkbox]");
 	for(i=0; i<boxes.length; i++) boxes[i].checked = !boxes[i].checked;
+}
+/* toggle details */
+function tgdetails(el){
+	var details = el.parentNode.nextSibling;
+	if(details.style.display == "block")
+		details.style.display = "none";
+	else
+		details.style.display = "block";
 }
 
 /* get a course in courses from its handle.
