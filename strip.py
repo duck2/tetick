@@ -32,7 +32,7 @@ ins_map = {k: v for v, k in enumerate(ins)}
 
 for cnode in cdata_raw:
 	outc = {"c": cnode["c"], "n": cnode["n"]}
-	outc["s"] = {snum: {"c": filterc(snode["c"]), "i": [ins_map[ins] for ins in snode["i"]], "t": convert(snode["t"])} for snum, snode in cnode["s"].iteritems() if len(snode["t"]) > 0}
+	outc["s"] = {snum: {"c": filterc(snode["c"]), "i": [ins_map[ins] for ins in snode["i"]], "t": convert(snode["t"])} for snum, snode in cnode["s"].items() if len(snode["t"]) > 0}
 	if len(outc["s"]) > 0: out.append(outc)
 
 # look up a course ID in courses
@@ -66,4 +66,4 @@ window.musts = %s;
 with open("data.js", "w") as f:
 	f.write(a)
 
-print "wrote %d bytes to data.js" % os.path.getsize("data.js")
+print("wrote %d bytes to data.js" % os.path.getsize("data.js"))

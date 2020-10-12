@@ -14,13 +14,13 @@ main.min.js: awesomplete.js data.js main.js
 	uglifyjs awesomplete.js data.js main.js --compress --mangle >  main.min.js
 
 data.js: data.json musts.json strip.py
-	python strip.py
+	python3 strip.py
 
 data.json: scrape.py
-	python scrape.py
+	python3 scrape.py
 
 musts.json: musts.py
-	python musts.py
+	python3 musts.py
 
 clean:
 	rm -f main.min.js $(OUTDIR)/index.html

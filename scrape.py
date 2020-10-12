@@ -3,8 +3,7 @@ import os, re
 import json
 import requests
 
-import codecs, sys
-sys.stdout = codecs.getwriter("UTF-8")(sys.stdout)
+import sys
 
 # this scrapes oibs64 for all the course data.
 # see data_spec.md for interpreting out_file.
@@ -24,7 +23,7 @@ def deptify(ccode):
 	try:
 		return prefixes[a] + b
 	except:
-		print "WARN! I don't know what department is %s" % a
+		print("WARN! I don't know what department is %s" % a)
 		return ""
 
 dept_codes=[]
@@ -99,7 +98,7 @@ time_prog=re.compile(a*5)
 days={"Monday": 0, "Tuesday": 1, "Wednesday": 2, "Thursday": 3, "Friday": 4, "Saturday": 5, "Sunday": 6}
 def eat_time(raw):
 	out=[]
-	for i in xrange(0, 20, 4):
+	for i in range(0, 20, 4):
 		chunk = raw[i:i+4]
 		if chunk[0] == '': continue # yes there are "period"s which have a place but no time, but know what, fuck them.
 		out.append({"d": days[chunk[0]], "s": chunk[1], "e": chunk[2], "p": chunk[3]})
@@ -113,37 +112,37 @@ cons_prog = re.compile("<TD><FONT FACE=ARIAL>(.*)</TD>[^<>]*<TD ALIGN=\"Center\"
 # this could be much, much faster given separate sessions.
 out=[]
 for dept in dept_codes:
-	print "hit dept %s: %s" % (dept, dept_names[dept])
+	print("hit dept %s: %s" % (dept, dept_names[dept]))
 	dept_text = get_dept(dept)
 	course_codes = [code for code in ccode_prog.findall(dept_text)]
-	print "%d offered courses" % len(course_codes)
+	print("%d offered courses" % len(course_codes))
 	for ccode in course_codes:
 		cnode={}
 		course_text = get_course(ccode)
 		cnode["n"] = deptify(ccode) + " - " + cname_prog.search(course_text).group(1)
 		cnode["c"] = ccode
 		cnode["s"] = {}
-		print "hit course %s" % ccode
-		print "course name: %s" % cname_prog.search(course_text).group(1)
+		print("hit course %s" % ccode)
+		print("course name: %s" % cname_prog.search(course_text).group(1))
 		times = time_prog.findall(course_text)
 		sects = sect_prog.findall(course_text)
-		print "%d sections" % len(sects)
+		print("%d sections" % len(sects))
 		for sect_match, time_match in zip(sects, times):
 			snode={}
 			snum = sect_match[0]
 			snode["i"] = [sect_match[1], sect_match[2]]
 			snode["t"] = eat_time(time_match)
 			sect = sect_match[0]
-			print "section %s is given by %s, %s" % (sect, sect_match[1], sect_match[2])
-			print "times are", eat_time(time_match)
+			print("section %s is given by %s, %s" % (sect, sect_match[1], sect_match[2]))
+			print("times are", eat_time(time_match))
 			sect_text = get_sect(sect)
 			cons = cons_prog.findall(sect_text)
-			print "%d constraints" % len(cons)
+			print("%d constraints" % len(cons))
 			snode["c"] = [{"d": con[0], "s": con[1], "e": con[2]} for con in cons]
 			cnode["s"][snum] = snode
 		out.append(cnode)
 
-print "done. hit %d pages" % hit
+print("done. hit %d pages" % hit)
 
 json.dump(out, open(out_file, "w"))
-print "wrote %d bytes to %s" % (os.path.getsize(out_file), out_file)
+print("wrote %d bytes to %s" % (os.path.getsize(out_file), out_file))
