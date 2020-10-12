@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # hopefully inlines CSS and JS.
 # this is just hacks cobbled together
@@ -8,7 +8,7 @@ import sys
 import re
 
 def usage():
-	print "usage: %s <file>" % sys.argv[0]
+	print("usage: %s <file>" % sys.argv[0])
 	sys.exit()
 
 if len(sys.argv) != 2: usage()
@@ -31,4 +31,4 @@ for m in match:
 	f = "<script>" + open(m.group(1), "r").read() + "</script>"
 	IN=IN.replace(m.group(0), f, 1)
 
-print IN
+print(IN)
