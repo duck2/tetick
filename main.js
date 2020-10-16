@@ -594,6 +594,7 @@ function restorestate(st){
 		idiot(true);
 	}
 	dontfills = st.d;
+	dontfillColorize();
 	for(i=0; i<st.c.length; i++){
 		var c = course(lookup[st.c[i].n]),
 			boxes = c.handle.getElementsByClassName("boxes")[0].querySelectorAll("input[type=checkbox]");
@@ -716,3 +717,11 @@ function clever(){
 }
 
 grab("idiot-link").onclick = function(){ if(isidiot === 1) { clever();} else { idiot();} };
+
+function dontfillColorize() {
+	for (var i = 0; i < dontfills.length; i++) {
+		var color;
+		(dontfills[i].n === "Don't fill") ? (color = dontfill_color) : (color = getcolor());
+		dontfills[i].c = color;
+	}
+}
