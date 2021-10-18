@@ -24,7 +24,7 @@ see [data_spec.md](https://github.com/duck2/tetick/blob/master/data_spec.md) for
 
 ## dependencies
 
-awesomplete from Lea Verou is under MIT license.
-the Go Mono font is under 3-clause BSD license.
-the DejaVu Mono font (from which a few icons are pulled) is under the [Bitstream Vera license](https://dejavu-fonts.github.io/License.html).
-the blue noise texture is from "[Free blue noise textures](http://momentsingraphics.de/BlueNoise.html)" are under CC0.
+* awesomplete from Lea Verou is under MIT license.
+* the Go Mono font is under 3-clause BSD license.
+* the DejaVu Mono font (from which a few icons are pulled) is under the [Bitstream Vera license](https://dejavu-fonts.github.io/License.html).
+* the blue noise texture is from "[Free blue noise textures](http://momentsingraphics.de/BlueNoise.html)" are under CC0.

@@ -42,12 +42,14 @@ for cnode in cdata_raw:
 		for snode in cnode["s"]
 		if len(snode["t"]) > 0
 	]
-	if len(outc["s"]) > 0: out.append(outc)
+	if len(outc["s"]) > 0:
+		out.append(outc)
 
 # look up a course ID in courses
 def lookup(id):
 	for i, cnode in enumerate(out):
-		if cnode["c"] == id: return i
+		if cnode["c"] == id:
+			return i
 
 musts = {}
 for dept in musts_raw:

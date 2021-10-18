@@ -326,7 +326,6 @@ function course(idx){
 	let out = {};
 	let data = window.cdata[idx];
 	let color = getcolor(data.c);
-	console.log(course_el, color);
 	let course_uuid = uuid(5);
 
 	close = button("close", "✖");

@@ -81,7 +81,8 @@ def get_sect(sect):
 # course code from dept page
 ccode_prog = re.compile("<INPUT TYPE=\"radio\" VALUE=\"([0-9]*)\"")
 
-# 2021 update: the templates did change one byte: now they have a space after Name: hehehe
+# course name from course page
+# 2021: the templates did change one byte: now they have a space after Name: hehehe
 cname_prog = re.compile("Name: </B>(.*)\s\(")
 
 # gets a section from course page. group(1) is section number. group(2) and group(3) are instructor names
@@ -120,7 +121,7 @@ for dept in dept_codes:
 		cnode={}
 		course_text = get_course(ccode)
 		cnode["n"] = deptify(ccode) + " - " + cname_prog.search(course_text).group(1)
-		cnode["c"] = int(ccode)
+		cnode["c"] = ccode
 		cnode["s"] = []
 		print("hit course %s" % ccode)
 		print("course name: %s" % cname_prog.search(course_text).group(1))
