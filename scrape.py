@@ -81,8 +81,8 @@ def get_sect(sect):
 # course code from dept page
 ccode_prog = re.compile("<INPUT TYPE=\"radio\" VALUE=\"([0-9]*)\"")
 
-# course name from course page
-cname_prog = re.compile("Name:</B>(.*)\s\(")
+# 2021 update: the templates did change one byte: now they have a space after Name: hehehe
+cname_prog = re.compile("Name: </B>(.*)\s\(")
 
 # gets a section from course page. group(1) is section number. group(2) and group(3) are instructor names
 sect_prog = re.compile("VALUE=\"(.*)\"  NAME=\"submit_section\"></TD>[^<]*<TD><FONT FACE=ARIAL>([^<]*)</FONT></TD>[^<]*<TD><FONT FACE=ARIAL>([^<]*)</FONT></TD>")
