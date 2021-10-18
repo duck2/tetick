@@ -704,6 +704,8 @@ function draw(){
 function compute_sects(C, check_dept, check_sn){
 	let dept = $("#dept").value.toUpperCase();
 	let sn = $("#surname").value.toUpperCase();
+	check_dept = check_dept && !!dept;
+	check_sn = check_sn && !!sn;
 	let deptck = c => {
 		if(!check_dept) return true;
 		if(c.d === "ALL" || c.d === dept) return true;

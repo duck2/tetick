@@ -471,7 +471,7 @@ button#add-course {
 .more label {
   order: 9;
   height: 24px;
-  width: 91px;
+  width: 87px;
   line-height: 24px;
   display: flex;
   justify-content: center;
@@ -576,7 +576,7 @@ button#add-course {
 }
 
 .checks label {
-  width: 94px;
+  width: 90px;
   text-align: center;
 }
 
