@@ -24,7 +24,7 @@ def filterc(cs):
 
 ins_set = set()
 for cnode in cdata_raw:
-	for snode in cnode["s"].values():
+	for snode in cnode["s"]:
 		ins_set.update(snode["i"])
 
 ins = list(ins_set)
@@ -32,7 +32,16 @@ ins_map = {k: v for v, k in enumerate(ins)}
 
 for cnode in cdata_raw:
 	outc = {"c": cnode["c"], "n": cnode["n"]}
-	outc["s"] = {snum: {"c": filterc(snode["c"]), "i": [ins_map[ins] for ins in snode["i"]], "t": convert(snode["t"])} for snum, snode in cnode["s"].iteritems() if len(snode["t"]) > 0}
+	outc["s"] = [
+		{
+			"c": filterc(snode["c"]),
+			"i": [ins_map[ins] for ins in snode["i"]],
+			"t": convert(snode["t"]),
+			"n": snode["n"]
+		}
+		for snode in cnode["s"]
+		if len(snode["t"]) > 0
+	]
 	if len(outc["s"]) > 0: out.append(outc)
 
 # look up a course ID in courses
@@ -66,4 +75,4 @@ window.musts = %s;
 with open("data.js", "w") as f:
 	f.write(a)
 
-print "wrote %d bytes to data.js" % os.path.getsize("data.js")
+print("wrote %d bytes to data.js" % os.path.getsize("data.js"))

@@ -7,81 +7,68 @@
 <link rel="stylesheet" href="awesomplete.css">
 <body>
 <div class="header">
-<a id="index">tetick.xyz</a>
-<a id="save">save</a>
-<a id="about-link">about</a>
-<a id="wrong-link">wrong!</a>
-<a id="idiot-link" title="i am an idiot who likes shiny big buttons with disgusting colours">ugly!</a>
+<a id="index">tetick.xyz</a><a id="save">save</a><a id="about-link">about</a>
 </div>
-
 <div class="swallow">
 	<div class="schedule">
 		<div class="nav">
+		<div id="state">blank</div>
 		<button id="prev"> ← </button>
 		<div id="counter">0/?</div>
-		<div id="state">blank</div>
 		<button id="next"> → </button>
 		</div>
 		<div style="position:relative;">
 		<div id="about" class="overlay"><div class="overchild">
-		w/love, by duck2.<br>
+		w/love, by <a href="https://twitter.com/duck2_c9f70cc7">duck2</a>.<br>
 		the code is available in <a href="https://github.com/duck2/tetick">github</a>.<br><br>
-		knock (duck2 at protonmail point com) for any issues of tetick<br>or questions about life and God.
+
+		if you are here, you somehow found the beta version. that's very nice. I have come to think the previous version is indeed ugly. ofc the other schedulers always find a way to be even more uglier, but that's not a very high bar to aim for, hehhe.<br><br>
+
+		here we have a webfont and some design upgrades which I've been working on for some time. a lot of features are missing right now. they are going to come back if I can find more time and energy.<br><br>
+
+		the real about section: I made this mostly for myself as a chronically irregular EE student back in 2017. surprisingly it still works and some people even use it. idk man<br><br>
 		</div></div>
-		<div id="wrong" class="overlay"><div class="overchild">
-		<i>- wrong! your scheduler does the wrong thing! this course is not on 8:40-10:40!</i><br><br>
-		some departments hide their course times or just lie to oibs64 and publish their own schedules.(hello BA)<br><br>
-		however tetick is made to embrace weird departments, late night labs or 10:37-12:31 courses. <br>
-		<b>please</b> drop a mail(see "about" on top) about any course data issue.
-		</div></div>
-		<div id="start_time">8:40</div>
-		<div id="end_time">17:30</div>
-		<table>
-		<tr><td><div class="eatd" id="0"></div></td>
-		<td><div class="eatd" id="1"></div></td>
-		<td><div class="eatd" id="2"></div></td>
-		<td><div class="eatd" id="3"></div></td>
-		<td><div class="eatd" id="4"></div></td>
-		</tr></table></div>
-		<div class="form">
-		i have <input class="short" id="n"> on day(1-5) <input class="short" id="d">, between <input class="short" id="s"> and <input class="short" id="e">
-		<button id="dontfill"> don't fill </button>
-		<div class="flashlight">
-		<button id="prevb">prev</button>
-		<button id="fl">flashlight</button>
-		<button id="nextb">next</button>
+		<div id="tt">
+			<div id="start_time">8:40</div>
+			<div id="end_time">17:40</div>
 		</div>
 		<div id="fdate">course data is from </div>
-		</div>
+	</div>
 	</div>
 	<div class="row">
-		<div class="options">
-			<div>dept, like fle or me: <input id="dept" class="short"></div>
-			<div>semester: <input id="semester" class="short"></div>
-			<div><button id="add-musts">add must courses</button></div>
-			<div>
-				<input type="checkbox" id="sncheck"> check for my surname, 2 letters: <input id="surname" class="short"> <br>
+		<div class="opts">
+			<input type="radio" name="opts" id="noob-radio" checked/>
+			<label for="noob-radio" class="opt-tab">noob</label>
+			<div class="opt noob-opt">
+				<div class="input-row">
+					<label for="dept">dept:</label>
+					<input id="dept" maxlength="4"/>
+					<label for="surname">surname:</label>
+					<input id="surname" maxlength="2"/>
+					<label for="semester">semester:</label>
+					<input id="semester" maxlength="1" placeholder="1-8"/>
+				</div>
+				<button id="add-musts">add musts</button>
+				<button id="make">make schedule</button>
 			</div>
-			<div><input type="checkbox" id="nodeptcheck"> don't check for dept</div>
-			<div><input type="checkbox" id="allphantom"> all courses phantom </div>
-			<div>
-				course: <input class="awesomplete" onclick="this.value='';" id="course-list" data-maxitems="5">
-				<button id="add"> add </button>
-			</div>
-			<button id="make"> make schedule </button>
+			<input type="radio" name="opts" id="irregular-radio"/>
+			<label for="irregular-radio" class="opt-tab">irregular</label>
+			<div class="opt irregular-opt">hello i'm irregular opts</div>
 		</div>
 		<div class="courses">
-			<div style="text-align: center; margin: 0.8em;"> current courses </div>
+			<div class="input-row">
+				<label for="course-auto">course:</label>
+				<input class="awesomplete" onclick="this.value='';" id="course-auto" data-maxitems="5">
+				<button id="add-course">add</button>
+			</div>
 		</div>
 	</div>
 </div>
 
-<div class="footer">
-	<hr>
-	now custom "don't fill"s can have colors.
-	<br>
-	arrow keys also work.
-</div>
+<img id="blueness" style="display:none;" src="data:image/png;base64,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"/>
+<img id="bayer16" style="display:none;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAAAAAA6mKC9AAAAOElEQVR4AWNkaFjQkAHEUVCa6QAaYCooMDBAxhgqGHmA+iKAOAtEk2kGM9T+MArcwQ+1P418dwAAJuGSu8G80U4AAAAASUVORK5CYII="/>
+<canvas id="dither-webgl" style="display:none;" width="64" height="64"></canvas>
+<canvas id="dither-tmp" style="display:none;" width="64" height="64"></canvas>
 
 <script src="awesomplete.js"></script>
 <script src="data.js"></script>
