@@ -24,6 +24,7 @@ time, mark, audio, video, textarea {
   vertical-align: baseline;
   image-rendering: crisp-edges;
   image-rendering: pixelated;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -78,6 +79,8 @@ input:not(type) {
   background: #fdf3d7;
   font: inherit;
   height: 24px;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
 }
 
 input:not(type):focus {
@@ -92,6 +95,8 @@ button {
   border-width: 1px 2px 2px 1px;
   font: 10pt GoMonoSubset, monospace;
   cursor: pointer;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
 }
 
 button:hover {
@@ -447,8 +452,8 @@ button#add-course {
   border: none;
   background-color: inherit;
   height: 28px;
-  margin-right: 6px;
-  float: right;
+  position: absolute;
+  right: 5px;
 }
 
 .more {
