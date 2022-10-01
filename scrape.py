@@ -4,7 +4,7 @@ import json
 import requests
 
 import codecs, sys
-sys.stdout = codecs.getwriter("UTF-8")(sys.stdout)
+
 
 # this scrapes oibs64 for all the course data.
 # see data_spec.md for interpreting out_file.
@@ -83,7 +83,7 @@ def get_sect(sect):
 ccode_prog = re.compile("<INPUT TYPE=\"radio\" VALUE=\"([0-9]*)\"")
 
 # course name from course page
-cname_prog = re.compile("Name:</B>(.*)\s\(")
+cname_prog = re.compile("Course Name: </B>(.*)\s\(")
 
 # gets a section from course page. group(1) is section number. group(2) and group(3) are instructor names
 sect_prog = re.compile("VALUE=\"(.*)\"  NAME=\"submit_section\"></TD>[^<]*<TD><FONT FACE=ARIAL>([^<]*)</FONT></TD>[^<]*<TD><FONT FACE=ARIAL>([^<]*)</FONT></TD>")
