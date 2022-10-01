@@ -2,7 +2,7 @@
 import os, re
 import json
 import requests
-
+import concurrent.futures
 import codecs, sys
 
 
@@ -31,7 +31,7 @@ dept_codes=[]
 dept_names={}
 
 # we need cookies and stuff, also pretend that we are firefox on windows
-s = requests.Session()
+initial_session = requests.Session()
 headers = requests.utils.default_headers()
 headers.update({"User-Agent": "Mozilla/5.0 (Windows NT 7.0; Win64; x64; rv:3.0b2pre) Gecko/20110203 Firefox/4.0b12pre",
 			"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
@@ -42,7 +42,7 @@ option_prog=re.compile("<option value=\"(.*)\">([^<]*)</option>")
 
 # decode with errors=ignore because oibs put a comment encoded in iso-8859-9 in the page
 # which unsurprisingly makes the utf8 codec throw an error.
-index_text = s.get(oibs_url, headers=headers).content.decode("utf-8", errors="ignore")
+index_text = initial_session.get(oibs_url, headers=headers).content.decode("utf-8", errors="ignore")
 
 for code, name in option_prog.findall(index_text):
 	dept_codes.append(code)
@@ -57,19 +57,19 @@ dept_codes = dept_codes[0:dept_codes.index(term)]
 
 # traversal functions
 hit=0
-def get_dept(dept):
+def get_dept(dept,s):
 	global hit
 	hit += 1
 	data={"textWithoutThesis": 1, "select_dept": dept, "select_semester": term,
 		"submit_CourseList": "Submit", "hidden_redir": "Login"}
 	return s.post(oibs_url, headers=headers, data=data).content.decode("utf-8", errors="ignore")
-def get_course(ccode):
+def get_course(ccode,s):
 	global hit
 	hit += 1
 	data={"SubmitCourseInfo": "Course Info", "text_course_code": ccode,
 		"hidden_redir": "Course_List"}
 	return s.post(oibs_url, headers=headers, data=data).content.decode("utf-8", errors="ignore")
-def get_sect(sect):
+def get_sect(sect,s):
 	global hit
 	hit += 1
 	data={"submit_section": sect, "hidden_redir": "Course_Info"}
@@ -111,15 +111,22 @@ cons_prog = re.compile("<TD><FONT FACE=ARIAL>(.*)</TD>[^<>]*<TD ALIGN=\"Center\"
 # now the actual scraping. we traverse oibs64's dept-course-section-constraint tree one page at a time.
 # blocking because I am too lazy to do this with green threads- see grequests.
 # this could be much, much faster given separate sessions.
-out=[]
-for dept in dept_codes:
+generated_list=[]
+def scraper(dept):
+	out=[]
+	#create new session for each thread
+	session = requests.Session()
+	headers = requests.utils.default_headers()
+	headers.update({"User-Agent": "Mozilla/5.0 (Windows NT 7.0; Win64; x64; rv:3.0b2pre) Gecko/20110203 Firefox/4.0b12pre",
+			"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+			"Pragma": "no-cache"})
 	print("hit dept %s: %s" % (dept, dept_names[dept]))
-	dept_text = get_dept(dept)
+	dept_text = get_dept(dept,session)
 	course_codes = [code for code in ccode_prog.findall(dept_text)]
 	print("%d offered courses" % len(course_codes))
 	for ccode in course_codes:
 		cnode={}
-		course_text = get_course(ccode)
+		course_text = get_course(ccode,session)
 		cnode["n"] = deptify(ccode) + " - " + cname_prog.search(course_text).group(1)
 		cnode["c"] = ccode
 		cnode["s"] = {}
@@ -136,14 +143,19 @@ for dept in dept_codes:
 			sect = sect_match[0]
 			print("section %s is given by %s, %s" % (sect, sect_match[1], sect_match[2]))
 			print("times are", eat_time(time_match))
-			sect_text = get_sect(sect)
+			sect_text = get_sect(sect,session)
 			cons = cons_prog.findall(sect_text)
 			print("%d constraints" % len(cons))
 			snode["c"] = [{"d": con[0], "s": con[1], "e": con[2]} for con in cons]
 			cnode["s"][snum] = snode
 		out.append(cnode)
+	return out
+with concurrent.futures.ThreadPoolExecutor(max_workers=100) as executor:
+	future_inf=[executor.submit(scraper,dept) for dept in dept_codes]
+	for future in concurrent.futures.as_completed(future_inf, timeout=100):
+		generated_list.extend(future.result())
 
 print("done. hit %d pages" % hit)
 
-json.dump(out, open(out_file, "w"))
+json.dump(generated_list, open(out_file, "w"))
 print("wrote %d bytes to %s" % (os.path.getsize(out_file), out_file))
