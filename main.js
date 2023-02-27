@@ -502,6 +502,7 @@ function make(){
 	if(compute()) state = "bound";
 	else alert("no schedules.");
 	draw();
+	history.pushState(state, '', JSON.stringify(getstate()))
 }
 grab("make").onclick = make;
 
@@ -586,6 +587,7 @@ function save(){
 	alert("your settings are saved in your browser.");
 	saved = true;
 }
+
 /* this does not errorcheck because there is no point providing feedback if someone put garbage in localStorage. */
 function restorestate(st){
 	var i, j;
@@ -616,8 +618,16 @@ function restorestate(st){
 }
 
 function load(){
-	var h = window.localStorage.getItem('state');
-	if(h) restorestate(JSON.parse(h));
+	if (window.location.toString().split("/")[3] == null) {
+		var h = window.localStorage.getItem('state');
+		if(h) restorestate(JSON.parse(h));
+		return;
+	} else {
+		var h = window.location.toString().split("/")[3];
+		if(h) restorestate(JSON.parse(atob(h)));
+		return;
+	}
+
 }
 function load_legacy(){
 	var h = window.location.hash.replace(/^#/, "");
